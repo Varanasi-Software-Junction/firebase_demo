@@ -144,8 +144,11 @@ class _SignInDemoState extends State<SignInDemo> {
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
+      print('Point 2 _googleSignIn.signIn();');
     } catch (error) {
+      print('Point 3 Error start();');
       print(error);
+      print('Point 4 Error done();');
     }
   }
     Future<void> _handleAuthorizeScopes() async {
@@ -217,6 +220,7 @@ class _SignInDemoState extends State<SignInDemo> {
               child: const Text("Click"),
             ),
             onTap: (){
+              print("Point 1");
               setState(() {
                 _handleSignIn();
               });
