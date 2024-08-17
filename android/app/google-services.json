@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1066785379873",
+    "project_id": "goal-getter-app-3f09c",
+    "storage_bucket": "goal-getter-app-3f09c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066785379873:android:690b7785342f87f1c03560",
+        "android_client_info": {
+          "package_name": "com.example.com.blogspot.vasj_firebase_demo.firebase_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQcAtIc-641j3iHcaGE4cxlJeAHyZxoL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
