@@ -1,14 +1,21 @@
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/intro_page/to_do_list_intro.dart';
+import 'package:firebase_demo/utilittis.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
 
   final String title;
 
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
@@ -32,6 +39,8 @@ class MyHomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 18,color: Colors.grey,fontWeight: FontWeight.w400),
                 ),
               ),
+              Text("${Googel_Signin.isAuthorized}"),
+              Text("${Googel_Signin.currentUser}"),
               const SizedBox(height: 100,),
               InkWell(
                 child: Container(
@@ -42,6 +51,10 @@ class MyHomePage extends StatelessWidget {
                     style: App_Text.button_text,),),
                 ),
                 onTap: (){
+                  setState((){
+                     Googel_Signin.login();
+                    print("bhvvybubu${Googel_Signin.currentUser}");
+                  });
                   Navigator.push(
                     context,
                     PageTransition(

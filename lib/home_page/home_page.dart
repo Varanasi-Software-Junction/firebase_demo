@@ -2,7 +2,9 @@ import 'package:firebase_demo/add_task/add_task.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/categery.dart';
 import 'package:firebase_demo/home_page/task_page.dart';
+import 'package:firebase_demo/utilittis.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GoogleSignInAccount? user = Googel_Signin.currentUser;
+  //print("Checking current user  $user");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +43,11 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50,),
+              Text(
+                '${user}'
+              ),
+
+        const SizedBox(height: 50,),
                   Center(
                     child: Container(
                       height: 200,

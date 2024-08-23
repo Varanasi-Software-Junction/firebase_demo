@@ -25,6 +25,8 @@ import 'dart:async';
 import 'dart:convert' show json;
 
 import 'package:firebase_demo/main.dart';
+import 'package:firebase_demo/signin_demo.dart';
+import 'package:firebase_demo/utilittis.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -33,8 +35,14 @@ import 'package:firebase_demo/intro_page/intro_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main()  {
-
+Future<void> main()  async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final GoogleSignInAccount? user = Googel_Signin.currentUser;
+  print("Checking current user  $user");
+  Googel_Signin.login();
   runApp(const MyApp());
 }
 

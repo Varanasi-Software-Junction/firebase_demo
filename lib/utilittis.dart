@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -13,4 +14,44 @@ static GoogleSignIn googleSignIn = GoogleSignIn(
 );
 static GoogleSignInAccount? currentUser;
 static bool isAuthorized = false;
+static bool check = isAuthorized =  Googel_Signin.googleSignIn.requestScopes(scopes) as bool;
+
+// FUNCTIONS()
+
+static Future<void> handleSignIn() async {
+  try {
+    await Googel_Signin.googleSignIn.signIn();
+    print('Point 2 _googleSignIn.signIn();');
+  } catch (error) {
+    print('Point 3 Error start();');
+    print(error);
+    print('Point 4 Error done();');
+  }
+}
+
+static Future<void> login() async{
+
+  Googel_Signin.googleSignIn.onCurrentUserChanged
+      .listen((GoogleSignInAccount? account) async {
+
+    bool isAuthorized = account != null;
+    // However, on web...
+     if (kIsWeb && account != null) {
+       isAuthorized = await Googel_Signin.googleSignIn.canAccessScopes(scopes);
+      // print(isAuthorized);
+     }
+      Googel_Signin.currentUser = account;
+      Googel_Signin.isAuthorized= isAuthorized;
+
+    // Now that we know that the user can access the required scopes, the app
+    // can call the REST API.
+    // if (isAuthorized) {
+    //   unawaited(_handleGetContact(account!));
+    // }
+  });
+
+  Googel_Signin.googleSignIn.signInSilently();
+
+}
+
 }

@@ -124,16 +124,16 @@ class _SignInDemoState extends State<SignInDemo> {
     return null;
   }
 
-  Future<void> _handleSignIn() async {
-    try {
-      await Googel_Signin.googleSignIn.signIn();
-      print('Point 2 _googleSignIn.signIn();');
-    } catch (error) {
-      print('Point 3 Error start();');
-      print(error);
-      print('Point 4 Error done();');
-    }
-  }
+  // Future<void> _handleSignIn() async {
+  //   try {
+  //     await Googel_Signin.googleSignIn.signIn();
+  //     print('Point 2 _googleSignIn.signIn();');
+  //   } catch (error) {
+  //     print('Point 3 Error start();');
+  //     print(error);
+  //     print('Point 4 Error done();');
+  //   }
+  // } // transfer utillites class
 
   Future<void> _handleAuthorizeScopes() async {
     final bool isAuthorized = await Googel_Signin.googleSignIn.requestScopes(scopes);
@@ -152,6 +152,7 @@ class _SignInDemoState extends State<SignInDemo> {
 
   Widget _buildBody() {
     final GoogleSignInAccount? user = Googel_Signin.currentUser;
+    print("Checking current user  $user");
     if (user != null) {
       // The user is Authenticated
       return Column(
@@ -238,7 +239,7 @@ class _SignInDemoState extends State<SignInDemo> {
             ),
           ),
 
-          const Padding(
+           const Padding(
             padding: EdgeInsets.only(left: 15),
             child: Row(
               children: [
@@ -317,11 +318,8 @@ class _SignInDemoState extends State<SignInDemo> {
                 ],
               ),
           ),
-             onTap: (){
-               setState(() {
-                 _handleSignIn();
-               });
-
+             onTap: () async {
+               await Googel_Signin.handleSignIn();
              },
            ),
           const SizedBox(height: 50), // Adjust this height to ensure it doesn't overflow
