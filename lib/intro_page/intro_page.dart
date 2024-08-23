@@ -18,8 +18,7 @@ class MyHomePage extends StatelessWidget {
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              //Image.asset("images/intro.png"),
-
+              Image.asset("images/intro.png"),
               const SizedBox(height: 20,),
               Text(
                 'Get Organized Your Life',

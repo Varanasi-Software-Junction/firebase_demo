@@ -1,4 +1,5 @@
 import 'package:firebase_demo/add_task/add_task.dart';
+import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/categery.dart';
 import 'package:firebase_demo/home_page/task_page.dart';
 import 'package:flutter/material.dart';
@@ -56,16 +57,16 @@ class _HomePageState extends State<HomePage> {
                                 Text("Hello,",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 35,fontStyle: FontStyle.italic),),
                               ],
                             ),
-                            const Row(
+                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 SizedBox(
                                     width:200,
-                                    child: Text("MR: Shubham Mourya",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
+                                    child: Text("MR: ${App_Text.name.text}",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
 
-                                CircleAvatar(
+                                const CircleAvatar(
                                   radius: 40,
-                                  //backgroundImage: AssetImage("images/intro.png"),
+                                  backgroundImage: AssetImage("images/intro.png"),
                                 )
 
                               ],

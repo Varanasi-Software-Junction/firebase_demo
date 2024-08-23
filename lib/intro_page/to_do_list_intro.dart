@@ -18,8 +18,8 @@ class To_Do_List_Intro extends StatelessWidget {
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // const SizedBox(height: 100,),
-               // Image.asset("images/list.png"),
+                 //const SizedBox(height: 100,),
+                Image.asset("images/list.png"),
 
                 const SizedBox(height: 25,),
                 Container(

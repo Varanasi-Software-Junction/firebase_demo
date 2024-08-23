@@ -1,3 +1,4 @@
+import 'package:firebase_demo/add_task/chose_screensize_page.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:flutter/material.dart';
@@ -426,14 +427,14 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                     ),
                   ),
                   onTap: (){
-                    // Navigator.push(
-                    //   context,
-                    //   PageTransition(
-                    //     type: PageTransitionType.rightToLeft,
-                    //     isIos: true,
-                    //     child: const Screensize_Page(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        isIos: true,
+                        child: const Screensize_Page(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(

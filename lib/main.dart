@@ -33,7 +33,8 @@ import 'package:firebase_demo/intro_page/intro_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async {
+void main()  {
+
   runApp(const MyApp());
 }
 

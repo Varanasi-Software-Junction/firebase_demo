@@ -1,5 +1,6 @@
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
+import 'package:firebase_demo/utilittis.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
@@ -12,16 +13,18 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 
-const List<String> scopes = <String>[
-  'email',
-  'https://www.googleapis.com/auth/contacts.readonly',
-];
+// const List<String> scopes = <String>[
+//   'email',
+//   'https://www.googleapis.com/auth/contacts.readonly',
+// ];
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
+const List<String> scopes =Googel_Signin.scopes;
+
+//GoogleSignIn _googleSignIn = GoogleSignIn(
   // Optional clientId
   // clientId: 'your-client_id.apps.googleusercontent.com',
-  scopes: scopes,
-);
+  //scopes: scopes,
+//);//transfer utilittes class
 // #enddocregion Initialize
 
 
@@ -34,8 +37,9 @@ class SignInDemo extends StatefulWidget {
 }
 
 class _SignInDemoState extends State<SignInDemo> {
-  GoogleSignInAccount? _currentUser;
-  bool _isAuthorized = false; // has granted permissions?
+
+  //GoogleSignInAccount? _currentUser;//transfer to utiities
+  //bool _isAuthorized = false; // has granted permissions? tranafer to utillits
   String _contactText = '';
   bool isChecked = false;
   bool isSecurePassword = false;
@@ -44,20 +48,20 @@ class _SignInDemoState extends State<SignInDemo> {
   void initState() {
     super.initState();
 
-    _googleSignIn.onCurrentUserChanged
+    Googel_Signin.googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount? account) async {
 // #docregion CanAccessScopes
       // In mobile, being authenticated means being authorized...
       bool isAuthorized = account != null;
       // However, on web...
       if (kIsWeb && account != null) {
-        isAuthorized = await _googleSignIn.canAccessScopes(scopes);
+        isAuthorized = await Googel_Signin.googleSignIn.canAccessScopes(scopes);
       }
 // #enddocregion CanAccessScopes
 
       setState(() {
-        _currentUser = account;
-        _isAuthorized = isAuthorized;
+        Googel_Signin.currentUser = account;
+        Googel_Signin.isAuthorized= isAuthorized;
       });
 
       // Now that we know that the user can access the required scopes, the app
@@ -67,7 +71,7 @@ class _SignInDemoState extends State<SignInDemo> {
       }
     });
 
-    _googleSignIn.signInSilently();
+    Googel_Signin.googleSignIn.signInSilently();
   }
 
   // Calls the People API REST endpoint for the signed-in user to retrieve information.
@@ -122,7 +126,7 @@ class _SignInDemoState extends State<SignInDemo> {
 
   Future<void> _handleSignIn() async {
     try {
-      await _googleSignIn.signIn();
+      await Googel_Signin.googleSignIn.signIn();
       print('Point 2 _googleSignIn.signIn();');
     } catch (error) {
       print('Point 3 Error start();');
@@ -132,22 +136,22 @@ class _SignInDemoState extends State<SignInDemo> {
   }
 
   Future<void> _handleAuthorizeScopes() async {
-    final bool isAuthorized = await _googleSignIn.requestScopes(scopes);
+    final bool isAuthorized = await Googel_Signin.googleSignIn.requestScopes(scopes);
     // #enddocregion RequestScopes
     setState(() {
-      _isAuthorized = isAuthorized;
+      Googel_Signin.isAuthorized = isAuthorized;
     });
     // #docregion RequestScopes
     if (isAuthorized) {
-      unawaited(_handleGetContact(_currentUser!));
+      unawaited(_handleGetContact(  Googel_Signin.currentUser!));
     }
     // #enddocregion RequestScopes
   }
 
-  Future<void> _handleSignOut() => _googleSignIn.disconnect();
+  Future<void> _handleSignOut() => Googel_Signin.googleSignIn.disconnect();
 
   Widget _buildBody() {
-    final GoogleSignInAccount? user = _currentUser;
+    final GoogleSignInAccount? user = Googel_Signin.currentUser;
     if (user != null) {
       // The user is Authenticated
       return Column(
@@ -161,7 +165,7 @@ class _SignInDemoState extends State<SignInDemo> {
             subtitle: Text(user.email),
           ),
           const Text('Signed in successfully.'),
-          if (_isAuthorized) ...<Widget>[
+          if (Googel_Signin.isAuthorized) ...<Widget>[
             // The user has Authorized all required scopes
            // Text(_contactText),
             InkWell(
@@ -183,7 +187,7 @@ class _SignInDemoState extends State<SignInDemo> {
               },
             )
           ],
-          if (!_isAuthorized) ...<Widget>[
+          if (!Googel_Signin.isAuthorized) ...<Widget>[
             // The user has NOT Authorized all required scopes.
             // (Mobile users may never see this button!)
             const Text('Additional permissions needed to read your contacts.'),
@@ -192,12 +196,25 @@ class _SignInDemoState extends State<SignInDemo> {
               child: const Text('REQUEST PERMISSIONS'),
             ),
           ],
-          ElevatedButton(
-            onPressed: _handleSignOut,
-            child: const Text('SIGN OUT'),
+
+          InkWell(
+            child: Container(
+              height: 50,
+              width: 300,
+              color: Colors.teal,
+              child: const Center(child: Text("Sign Out",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),)),
+            ),
+            onTap:() {
+             setState(() {
+               _handleSignOut();
+             });
+            },
           ),
+
+
         ],
       );
+
     } else {
       // The user is NOT Authenticated
       return Column(
@@ -220,6 +237,7 @@ class _SignInDemoState extends State<SignInDemo> {
               ],
             ),
           ),
+
           const Padding(
             padding: EdgeInsets.only(left: 15),
             child: Row(
@@ -245,8 +263,8 @@ class _SignInDemoState extends State<SignInDemo> {
                   child: SizedBox(
                     child: TextField(
                       autofocus: true,
-                      keyboardType: TextInputType.number,
-                      controller: App_Text.number,
+                      keyboardType: TextInputType.text,
+                      controller: App_Text.name,
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 17,
@@ -294,7 +312,7 @@ class _SignInDemoState extends State<SignInDemo> {
                   ),
                   CircleAvatar(
                     radius: 20,
-                    //backgroundImage: AssetImage('images/google.png'),
+                    backgroundImage: AssetImage('images/google.png'),
                   ),
                 ],
               ),
