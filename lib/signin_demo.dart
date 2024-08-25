@@ -222,11 +222,14 @@ class _SignInDemoState extends State<SignInDemo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           // const Text('You are not currently signed in.'),
+          Image.asset("images/login.png"),
+
           const SizedBox(height: 20),
           const Padding(
             padding: EdgeInsets.only(left: 15),
             child: Row(
               children: [
+
                 Text(
                   'Login',
                   style: TextStyle(
@@ -253,46 +256,6 @@ class _SignInDemoState extends State<SignInDemo> {
                 ),
               ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 350,
-                child: Container(
-                  color: Colors.green.shade50,
-                  child: SizedBox(
-                    child: TextField(
-                      autofocus: true,
-                      keyboardType: TextInputType.text,
-                      controller: App_Text.name,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                      ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.green,
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.teal,
-                          ),
-                        ),
-                        labelText: "Enter Your Name",
-                        labelStyle: const TextStyle(color: Colors.green),
-                        prefixIcon: const Icon(Icons.person, color: Colors.teal),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
 
           InkWell(

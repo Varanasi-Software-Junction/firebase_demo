@@ -43,10 +43,6 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-              Text(
-                '${user}'
-              ),
-
         const SizedBox(height: 50,),
                   Center(
                     child: Container(
@@ -70,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 SizedBox(
                                     width:200,
-                                    child: Text("MR: ${App_Text.name.text}",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
+                                    child: Text("${user?.displayName}",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
 
                                 const CircleAvatar(
                                   radius: 40,

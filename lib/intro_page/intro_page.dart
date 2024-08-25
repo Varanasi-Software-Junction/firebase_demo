@@ -1,4 +1,5 @@
 import 'package:firebase_demo/app_theam.dart';
+import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:firebase_demo/intro_page/to_do_list_intro.dart';
 import 'package:firebase_demo/utilittis.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //This function define in the utillites page
+      Googel_Signin.login();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -39,8 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 18,color: Colors.grey,fontWeight: FontWeight.w400),
                 ),
               ),
-              Text("${Googel_Signin.isAuthorized}"),
-              Text("${Googel_Signin.currentUser}"),
               const SizedBox(height: 100,),
               InkWell(
                 child: Container(
@@ -51,19 +57,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: App_Text.button_text,),),
                 ),
                 onTap: (){
-                  setState((){
-                     Googel_Signin.login();
-                    print("bhvvybubu${Googel_Signin.currentUser}");
-                  });
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      isIos: true,
-                      child:  const To_Do_List_Intro(),
-                      // FingerPrint(),
-                    ),
-                  );
+                  if(Googel_Signin.currentUser == null) {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        isIos: true,
+                        child: const To_Do_List_Intro(),
+                        // FingerPrint(),
+                      ),
+                    );
+                  }
+                  else{
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        isIos: true,
+                        child:  Bottomnavigation(index: 0,),
+                        // FingerPrint(),
+                      ),
+                    );
+                  }
                 },
               )
             ],

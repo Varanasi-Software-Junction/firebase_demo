@@ -17,7 +17,7 @@ static bool isAuthorized = false;
 static bool check = isAuthorized =  Googel_Signin.googleSignIn.requestScopes(scopes) as bool;
 
 // FUNCTIONS()
-
+// the purpose of this fun to login throw the whose g mail.
 static Future<void> handleSignIn() async {
   try {
     await Googel_Signin.googleSignIn.signIn();
@@ -28,7 +28,7 @@ static Future<void> handleSignIn() async {
     print('Point 4 Error done();');
   }
 }
-
+// the purpose of this fun check user login or not.
 static Future<void> login() async{
 
   Googel_Signin.googleSignIn.onCurrentUserChanged
@@ -38,16 +38,14 @@ static Future<void> login() async{
     // However, on web...
      if (kIsWeb && account != null) {
        isAuthorized = await Googel_Signin.googleSignIn.canAccessScopes(scopes);
-      // print(isAuthorized);
      }
       Googel_Signin.currentUser = account;
       Googel_Signin.isAuthorized= isAuthorized;
 
-    // Now that we know that the user can access the required scopes, the app
-    // can call the REST API.
     // if (isAuthorized) {
     //   unawaited(_handleGetContact(account!));
     // }
+
   });
 
   Googel_Signin.googleSignIn.signInSilently();

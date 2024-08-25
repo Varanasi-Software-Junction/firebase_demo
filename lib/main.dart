@@ -40,9 +40,10 @@ Future<void> main()  async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final GoogleSignInAccount? user = Googel_Signin.currentUser;
-  print("Checking current user  $user");
   Googel_Signin.login();
+  print("Checking current user  ${Googel_Signin.currentUser}");
+  print("Checking current user  ${Googel_Signin.isAuthorized}");
+
   runApp(const MyApp());
 }
 
