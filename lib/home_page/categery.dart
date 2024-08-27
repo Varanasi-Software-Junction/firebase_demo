@@ -168,10 +168,7 @@ class _CategoryState extends State<Category> {
                   isselect = 5;
                 });
                 },),
-              const SizedBox(width: 10,),
-               Text("Add more...",
-                 style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,decoration: TextDecoration.underline,
-                 decorationColor: Colors.green.shade600),),
+
               const SizedBox(width: 10,),
             ],
           ),

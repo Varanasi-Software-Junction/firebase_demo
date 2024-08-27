@@ -4,7 +4,21 @@ import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+
+
+//import 'firebase_options.dart';
+
 const List<String> list_a = <String>[
+  'Choose',
   'Personal',
   'Office Work',
   'Workout',
@@ -23,8 +37,9 @@ const List<String> list_b = <String>[
 
 
 class Add_TaskPage extends StatefulWidget {
-  const Add_TaskPage({super.key});
+  static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
 
+  const Add_TaskPage({super.key});
   @override
   State<Add_TaskPage> createState() => _Add_TaskPageState();
 }
@@ -34,6 +49,27 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
   DateTime _selectedDate2 = DateTime.now();
 //*************Time picker initializer*************
   TimeOfDay _selectedTime = TimeOfDay.now();
+
+  @override
+  void initState() {
+    super.initState();
+    firebaseInit();
+  }
+
+  void firebaseInit() {
+    try {
+      //Firebase.initializeApp().whenComplete(() {
+
+      // prin != nullt("Initialized");
+      // });
+      Add_TaskPage.firestoredb = FirebaseFirestore.instance;
+    } catch (ee) {
+      print(ee);
+    }
+  }
+
+  _FirebaseDemoState() {}
+  String firebasedata = "data";
 
   Future<void> _fromDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -76,6 +112,8 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
       });
     }
   }
+
+  String category = "";
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +162,7 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                         width: 350,
                         child: TextField(
                           autofocus: true,
+                          controller: App_Text.task_title,
                           cursorColor: Colors.green,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
@@ -170,8 +209,9 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                       child: SizedBox(
                         width: 350,
                         child: TextField(
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           autofocus: true,
+                          controller: App_Text.sub_title,
                           cursorColor: Colors.green,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
@@ -462,6 +502,7 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                         child: TextField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
+                          controller: App_Text.comments,
                           cursorColor: Colors.green,
                           cursorHeight: 20,
                           style: const TextStyle(
@@ -494,17 +535,49 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Center(
-                            child: Text(
-                              "Cancel",
-                              style: TextStyle(color: Colors.white, fontSize: 20),
-                            ))),
+                    InkWell(
+                      child: Container(
+                          height: 50,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: const Center(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(color: Colors.white, fontSize: 20),
+                              ))),
+                      onTap: () async {
+                        print("click");
+                        dynamic result =
+                            await Add_TaskPage.firestoredb?.collection("goal_getter").snapshots();
+                            print("result");
+                            print(result.runtimeType);
+                            print("yes");
+                        Stream<QuerySnapshot> ms = result;
+                        setState((){
+
+                          // App_Text.sub_title.clear();
+                          // App_Text.task_title.clear();
+                          // App_Text.comments.clear();
+                          // App_Text.repeat_task = "None";
+                            });
+
+                        firebasedata = "";
+                        ms.forEach((element) {
+                          for (var value in element.docs) {
+                            print(value.data());
+
+                            //await element.docs.removeAt(index);
+                            firebasedata = firebasedata + value.data().toString() + "\n";
+                            print(value.get("title"));
+                           // print(value.get("messagefrom"));
+                          }
+                        });
+                        print(firebasedata);
+
+                      },
+                    ),
                     InkWell(
                       child: Container(
                           height: 50,
@@ -517,15 +590,35 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                                 "Save",
                                 style: TextStyle(color: Colors.white, fontSize: 20),
                               ))),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.leftToRight,
-                            isIos: true,
-                            child:  Bottomnavigation(index: 0),
-                          ),
-                        );
+                      onTap: () async{
+                        // Navigator.push(
+                        //   context,
+                        //   PageTransition(
+                        //     type: PageTransitionType.leftToRight,
+                        //     isIos: true,
+                        //     child:  Bottomnavigation(index: 0),
+                        //   ),
+                        // );
+                        print("sending dta");
+                        if(Add_TaskPage.firestoredb is  Null)
+                          {
+                            print("Got Null");
+
+                          }
+                        else {
+                          await Add_TaskPage.firestoredb?.collection(
+                              "goal_getter").add({
+                            "title": App_Text.task_title.text,
+                            "sub_title": App_Text.sub_title.text,
+                            "category":App_Text.category,
+                            "date":_selectedDate1.day.toInt(),
+                            "month":_selectedDate1.month.toInt(),
+                            "year":_selectedDate1.year.toInt(),
+                            "time":_selectedTime.format(context).toString(),
+                            "repeat":App_Text.repeat_task,
+                            "comments":App_Text.comments.text,
+                          });
+                        }
                       },
                     ),
                   ],
@@ -572,6 +665,8 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          App_Text.category = dropdownValue;
+          print(App_Text.category);
         });
       },
       items: list_a.map<DropdownMenuItem<String>>((String value) {
@@ -617,6 +712,8 @@ class _DropdownButton_BState extends State<DropdownButton_B> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          App_Text.repeat_task = dropdownValue;
+          print(App_Text.repeat_task);
         });
       },
       items: list_b.map<DropdownMenuItem<String>>((String value) {

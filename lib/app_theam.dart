@@ -15,10 +15,15 @@ class App_Text{
   static TextEditingController number = TextEditingController();
   static TextEditingController password = TextEditingController();
   static TextEditingController name = TextEditingController();
+  static TextEditingController task_title = TextEditingController();
+  static TextEditingController sub_title = TextEditingController();
+  static TextEditingController comments = TextEditingController();
 
   //select var
   static String connection = "";
+  static String category="None";
   static String Screen_size="None";
+  static String repeat_task="";
 
 }
 

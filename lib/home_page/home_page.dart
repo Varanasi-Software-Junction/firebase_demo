@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                                     width:200,
                                     child: Text("${user?.displayName}",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
 
-                                const CircleAvatar(
+                                 const CircleAvatar(
                                   radius: 40,
                                   backgroundImage: AssetImage("images/intro.png"),
                                 )
@@ -76,41 +76,9 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             const SizedBox(height: 10,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const SizedBox(
-                                    width:200,
-                                    child: Text("")),
-                                InkWell(
-                                  child: Container(
-                                    height: 30,
-                                    width: 80,
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: Colors.white,width: 1.5),
-
-                                    ),
-
-                                    child: const Center(
-                                      child: Text("Edit",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),),
-                                    ),
-                                  ),
-                                  onTap: (){
-                                    // Navigator.push(
-                                    //   context,
-                                    //   PageTransition(
-                                    //     type: PageTransitionType.rightToLeft,
-                                    //     isIos: true,
-                                    //     child: const Edit_ProfilePage(),
-                                    //   ),
-                                    // );
-
-                                  },
-                                )
-                              ],
-                            ),
+                            SizedBox(
+                               width:300,
+                               child: Center(child: Text("${user?.email}",style: TextStyle(fontWeight: FontWeight.w500,),))),
                           ],
                         ),
                       ),

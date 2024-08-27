@@ -10,6 +10,11 @@ class CalanderPage extends StatefulWidget {
 
 class _CalanderPageState extends State<CalanderPage> {
   DateTime today = DateTime.now();
+  void _onDaySelected(DateTime day, DateTime focuseDay){
+    setState(() {
+      today = day;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +31,13 @@ class _CalanderPageState extends State<CalanderPage> {
                 rowHeight: 50,
                 headerStyle:
                 const HeaderStyle(formatButtonVisible: false, titleCentered:  true),
+              availableGestures: AvailableGestures.all,
+              selectedDayPredicate: (day)=> isSameDay(day,today),
                 focusedDay: today,
                 firstDay: DateTime.utc(2010,10,15),
-                lastDay: DateTime.utc(2030,3,14)),
+                lastDay: DateTime.utc(2030,3,14),
+              onDaySelected: _onDaySelected,
+            ),
           )
         ],
       ),

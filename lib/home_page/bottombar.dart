@@ -22,7 +22,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
     const HomePage(),
      const PandingPage(),
      const CompletePage(),
-     CalanderPage(),
+     const CalanderPage(),
     // const Profile(),
   ];
 
@@ -135,7 +135,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
 
                   ),
                   Text(
-                    "Calender",
+                    "Calendar",
                     style: TextStyle(
                       fontSize: 10,
                       color: _selectedIndex == 3 ? Colors.green : Colors.green.shade100,
