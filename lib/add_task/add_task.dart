@@ -533,6 +533,9 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                   height: 50,
                 ),
                 Text(App_Text.data),
+                Text(App_Text.title),
+                Text(App_Text.Category),
+                Text(App_Text.date),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -570,6 +573,11 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                             print(value.data());
                             setState(() {
                               App_Text.data = value.get("sub_title").toString();
+                              App_Text.title = value.get("title").toString();
+                              App_Text.Category = value.get("category").toString();
+                              App_Text.date = value.get("date").toString();
+                              //App_Text.month = value.get("month").toString();
+                              App_Text.time = value.get("time").toString();
 
                             });
 

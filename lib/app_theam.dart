@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class App_Text{
@@ -25,6 +26,19 @@ class App_Text{
   static String Screen_size="None";
   static String repeat_task="";
   static String data="";
+  static String title="";
+  static String Category="";
+  static String date="";
+  static String time="";
+  static String month="";
+  static String year="";
+
+  static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
+
+  _FirebaseDemoState() {}
+  static String firebasedata = "data";
+
+
 
 }
 

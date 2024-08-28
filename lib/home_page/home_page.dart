@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/add_task/add_task.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/categery.dart';
@@ -8,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 
 class HomePage extends StatefulWidget {
+  static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
   const HomePage({super.key});
 
   @override
@@ -16,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GoogleSignInAccount? user = Googel_Signin.currentUser;
+
   //print("Checking current user  $user");
   @override
   Widget build(BuildContext context) {
