@@ -24,30 +24,16 @@ class _CompletePageState extends State<CompletePage> {
         ),
         title: const Text("Complete Task",style: TextStyle(color: Colors.teal,fontWeight: FontWeight.bold,fontSize: 25),),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
+        child: Column(
 
-            children: [
-              //************ Pending task *************//
-              SizedBox(height: 10,),
-              TaskPage(),
-              SizedBox(height: 20,),
-              TaskPage(),
-              SizedBox(height: 20,),
-              TaskPage(),
-              SizedBox(height: 20,),
-              TaskPage(),
-              SizedBox(height: 20,),
-              TaskPage(),
+          children: [
+            //************ Pending task *************//
+            SizedBox(height: 10,),
+            TaskPage(),
 
-
-
-
-            ],
-          ),
+          ],
         ),
       ),
     );

@@ -241,11 +241,6 @@ class _PandingPageState extends State<PandingPage> {
               ),
               const SizedBox(height: 10,),
               const TaskPage(),
-              const SizedBox(height: 20,),
-              const TaskPage(),
-              const SizedBox(height: 20,),
-              const TaskPage()
-
 
 
             ],

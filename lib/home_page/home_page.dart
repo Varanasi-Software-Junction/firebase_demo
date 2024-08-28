@@ -128,10 +128,10 @@ class _HomePageState extends State<HomePage> {
                               border: Border.all(color: Colors.green)
 
                           ),
-                          child: const Column(
+                          child:  Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("3",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
+                              Text("${ App_Text.Counter}",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
                               Text("Pending Task",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
                             ],
                           ),

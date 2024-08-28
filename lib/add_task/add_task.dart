@@ -532,10 +532,6 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                Text(App_Text.data),
-                Text(App_Text.title),
-                Text(App_Text.Category),
-                Text(App_Text.date),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -552,42 +548,12 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                                 style: TextStyle(color: Colors.white, fontSize: 20),
                               ))),
                       onTap: () async {
-                        print("click");
-                        dynamic result =
-                            await Add_TaskPage.firestoredb?.collection("goal_getter").snapshots();
-                            print("result");
-                            print(result.runtimeType);
-                            print("yes");
-                        Stream<QuerySnapshot> ms = result;
                         setState((){
-
-                          // App_Text.sub_title.clear();
-                          // App_Text.task_title.clear();
-                          // App_Text.comments.clear();
-                          // App_Text.repeat_task = "None";
-                            });
-
-                        firebasedata = "";
-                        ms.forEach((element) {
-                          for (var value in element.docs) {
-                            print(value.data());
-                            setState(() {
-                              App_Text.data = value.get("sub_title").toString();
-                              App_Text.title = value.get("title").toString();
-                              App_Text.Category = value.get("category").toString();
-                              App_Text.date = value.get("date").toString();
-                              //App_Text.month = value.get("month").toString();
-                              App_Text.time = value.get("time").toString();
-
-                            });
-
-                            //await element.docs.removeAt(index);
-                            firebasedata = firebasedata + value.data().toString() + "\n";
-                            print(value.get("title"));
-                           // print(value.get("messagefrom"));
-                          }
+                          App_Text.sub_title.clear();
+                        App_Text.task_title.clear();
+                         App_Text.comments.clear();
+                           App_Text.repeat_task = "None";
                         });
-                        print(firebasedata);
 
                       },
                     ),
@@ -604,14 +570,14 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                                 style: TextStyle(color: Colors.white, fontSize: 20),
                               ))),
                       onTap: () async{
-                        // Navigator.push(
-                        //   context,
-                        //   PageTransition(
-                        //     type: PageTransitionType.leftToRight,
-                        //     isIos: true,
-                        //     child:  Bottomnavigation(index: 0),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            isIos: true,
+                            child:  Bottomnavigation(index: 0),
+                          ),
+                        );
                         print("sending dta");
                         if(Add_TaskPage.firestoredb is  Null)
                           {

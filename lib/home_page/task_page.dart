@@ -100,14 +100,26 @@ class _TaskPageState extends State<TaskPage> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        print(value.data());
 
-        lst.add(  TaskList(value.get("title").toString()));
+        setState(() {
+          App_Text.Counter++;
+          lst.add(TaskList(
+            value.get("title").toString(),
+            value.get("sub_title").toString(),
+            value.get("time").toString(),
+            value.get("date").toString(),
+            value.get("month").toString(),
+            value.get("year").toString(),
+            value.get("category").toString(),
+          ));
+        });
+        print(value.get("title").toString());
         //await element.docs.removeAt(index);
         firebasedata = firebasedata + value.data().toString() + "\n";
-        print(value.get("title"));
-        // print(value.get("messagefrom"));
+        print(value.get("date"));
       }
+    });
+    setState(() {
     });
     print(firebasedata);
 
@@ -116,11 +128,17 @@ class _TaskPageState extends State<TaskPage> {
 
   _FirebaseDemoState() {}
   String firebasedata = "data";
-  bool isselect=false;
   @override
   Widget build(BuildContext context) {
 
-    return  TaskList("One");
+    return  Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: lst,
+
+      ),
+    );
+      //TaskList("One");
 
     }
 

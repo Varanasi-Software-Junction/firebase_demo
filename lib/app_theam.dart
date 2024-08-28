@@ -25,13 +25,7 @@ class App_Text{
   static String category="None";
   static String Screen_size="None";
   static String repeat_task="";
-  static String data="";
-  static String title="";
-  static String Category="";
-  static String date="";
-  static String time="";
-  static String month="";
-  static String year="";
+  static int Counter = 1;
 
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
 
