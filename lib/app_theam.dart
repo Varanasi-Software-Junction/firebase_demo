@@ -24,6 +24,7 @@ class App_Text{
   static String category="None";
   static String Screen_size="None";
   static String repeat_task="";
+  static String data="";
 
 }
 

@@ -532,6 +532,7 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                 const SizedBox(
                   height: 50,
                 ),
+                Text(App_Text.data),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -567,6 +568,10 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                         ms.forEach((element) {
                           for (var value in element.docs) {
                             print(value.data());
+                            setState(() {
+                              App_Text.data = value.get("sub_title").toString();
+
+                            });
 
                             //await element.docs.removeAt(index);
                             firebasedata = firebasedata + value.data().toString() + "\n";
