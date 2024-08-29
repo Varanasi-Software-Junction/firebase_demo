@@ -155,13 +155,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  if(App_Text.date == DateTime.now().day && App_Text.month == DateTime.now().month && App_Text.year == DateTime.now().year)
                   const SizedBox(height: 20,),
                   const TaskPage(),
-                  const SizedBox(height: 20,),
-                  //const TaskPage(),
-                  const SizedBox(height: 20,),
-                 // const TaskPage(),
-
                 ],
               ),
             ),

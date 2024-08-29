@@ -5,62 +5,6 @@ import 'package:firebase_demo/home_page/task_list.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-//
-// class TaskPage extends StatefulWidget {
-//   static FirebaseFirestore? firestoredb;
-//
-//   const TaskPage({super.key});
-//
-//   @override
-//   State<TaskPage> createState() => _TaskPageState();
-// }
-//
-// class _TaskPageState extends State<TaskPage> {
-//   bool isselect = false;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<QuerySnapshot>(
-//       stream: TaskPage.firestoredb
-//           ?.collection("goal_getter")
-//           .snapshots(),
-//       builder: (context, snapshot) {
-//         try {
-//           print("come");
-//           if (snapshot.hasData) {
-//             print("data is here");
-//             // final messages = snapshot.data?.docs;
-//             // List<Widget> lst = [];
-//             // for (var message in messages!) {
-//             //   final messagetext = message.get("title");
-//             //   final messagetextfield = VsjTwo(messagetext.toString());
-//             //   lst.add(messagetextfield);
-//             //   lst.add(SizedBox(height: 10)
-//             //   );
-//             // }
-//             return const Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children:[
-//                 Text("hash data"),
-//               ]
-//             );
-//           } else {
-//             return Column(
-//               children: const [
-//                 Text("Waiting"),
-//               ],
-//             );
-//           }
-//         } catch (e) {
-//           return const Text("Error loading data");
-//         }
-//       },
-//     );
-//   }
-// }
-
-
-
 class TaskPage extends StatefulWidget {
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
   const TaskPage({super.key});
@@ -89,18 +33,18 @@ class _TaskPageState extends State<TaskPage> {
   }
   List<Widget> lst = [];
   Future<void> getmessages() async {
-
-    print("click");
     dynamic result =
     await TaskPage.firestoredb?.collection("goal_getter").snapshots();
-    print("result");
-    print(result.runtimeType);
-    print("yes");
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
+      stream: TaskPage.firestoredb
+          ?.collection("goal_getter")
+          .where("title", isEqualTo: "Metting")
+          .orderBy("time");
       for (var value in element.docs) {
-
+if(value.get('title').toString()!='Metting')
+  continue;
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
@@ -111,12 +55,18 @@ class _TaskPageState extends State<TaskPage> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
+
           ));
+
+          //******************** value initlization*******************************//
+          App_Text.date = value.get("date").toString();
+          App_Text.month = value.get("month").toString();
+          App_Text.year = value.get("year").toString();
+
+
         });
-        print(value.get("title").toString());
-        //await element.docs.removeAt(index);
         firebasedata = firebasedata + value.data().toString() + "\n";
-        print(value.get("date"));
+        print(TimeOfDay.hoursPerDay);
       }
     });
     setState(() {
@@ -128,6 +78,7 @@ class _TaskPageState extends State<TaskPage> {
 
   _FirebaseDemoState() {}
   String firebasedata = "data";
+
   @override
   Widget build(BuildContext context) {
 
@@ -139,8 +90,8 @@ class _TaskPageState extends State<TaskPage> {
       ),
     );
       //TaskList("One");
-
     }
+
 
 
   }

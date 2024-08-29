@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_demo/app_theam.dart';
+import 'package:firebase_demo/home_page/task_list.dart';
 import 'package:firebase_demo/home_page/task_page.dart';
 import 'package:flutter/material.dart';
 
 class PandingPage extends StatefulWidget {
+  static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
+
   const PandingPage({super.key});
 
   @override
@@ -10,6 +15,66 @@ class PandingPage extends StatefulWidget {
 
 class _PandingPageState extends State<PandingPage> {
   int isselect = 0;
+  @override
+  void initState(){
+    super.initState();
+    firebaseInit();
+    getmessages();
+
+  }
+
+  void firebaseInit() {
+    try {
+      PandingPage.firestoredb = FirebaseFirestore.instance;
+    } catch (ee) {
+      print(ee);
+    }
+  }
+  List<Widget> lst = [];
+  Future<void> getmessages() async {
+    dynamic result =
+    await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        // if(value.get('title').toString()!='Metting')
+        //   continue;
+        setState(() {
+          App_Text.Counter++;
+          lst.add(TaskList(
+            value.get("title").toString(),
+            value.get("sub_title").toString(),
+            value.get("time").toString(),
+            value.get("date").toString(),
+            value.get("month").toString(),
+            value.get("year").toString(),
+            value.get("category").toString(),
+
+          ));
+
+          //******************** value initlization*******************************//
+          App_Text.date = value.get("date").toString();
+          App_Text.month = value.get("month").toString();
+          App_Text.year = value.get("year").toString();
+
+
+        });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+        print(TimeOfDay.hoursPerDay);
+      }
+    });
+    setState(() {
+    });
+    print(firebasedata);
+
+
+  }
+
+  _FirebaseDemoState() {}
+  String firebasedata = "data";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,7 +305,9 @@ class _PandingPageState extends State<PandingPage> {
                 ),
               ),
               const SizedBox(height: 10,),
-              const TaskPage(),
+              Column(
+                children: lst
+              ),
 
 
             ],

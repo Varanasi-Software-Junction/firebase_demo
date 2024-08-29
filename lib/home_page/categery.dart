@@ -39,6 +39,7 @@ class _CategoryState extends State<Category> {
                       ),
                     ))),
                 onTap: () {
+                  print(DateTime.now().microsecond);
                   setState(() {
                     isselect = 0;
                     print(isselect);
