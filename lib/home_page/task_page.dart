@@ -38,12 +38,9 @@ class _TaskPageState extends State<TaskPage> {
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-      stream: TaskPage.firestoredb
-          ?.collection("goal_getter")
-          .where("title", isEqualTo: "Metting")
-          .orderBy("time");
+
       for (var value in element.docs) {
-if(value.get('title').toString()!='Metting')
+if(value.get('date').toString() != DateTime.now().day.toString())
   continue;
         setState(() {
           App_Text.Counter++;
