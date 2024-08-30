@@ -146,18 +146,7 @@ class _HomePageState extends State<HomePage> {
                     child: Category(),
                   ),
                   //******** Task ****************//
-                  const SizedBox(height: 10,),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        Text("Today's Task",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),)
-                      ],
-                    ),
-                  ),
-                  if(App_Text.date == DateTime.now().day && App_Text.month == DateTime.now().month && App_Text.year == DateTime.now().year)
-                  const SizedBox(height: 20,),
-                  const TaskPage(),
+
                 ],
               ),
             ),

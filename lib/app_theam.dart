@@ -32,6 +32,10 @@ class App_Text{
 
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
 
+  static List<Widget> lst = [];
+  static bool click = false;
+
+
   _FirebaseDemoState() {}
   static String firebasedata = "data";
 
