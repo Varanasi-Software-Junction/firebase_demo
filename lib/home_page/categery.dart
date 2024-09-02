@@ -478,7 +478,7 @@ class _CategoryState extends State<Category> {
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(color: Colors.green.shade300)),
                         child: Center(
-                            child: Text("Other",
+                            child: Text("Birthday",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
@@ -489,6 +489,32 @@ class _CategoryState extends State<Category> {
                         lst.clear();
                         none();
                         isselect = 6;
+                      });
+                    },),
+
+                  const SizedBox(width: 10,),
+                  InkWell(
+                    child: Container(
+                        height: 30,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: isselect != 7
+                                ? Colors.white
+                                : Colors.green.shade300,
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: Colors.green.shade300)),
+                        child: Center(
+                            child: Text("Other",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: isselect != 7 ? Colors.black : Colors.white,
+                              ),))),
+                    onTap: (){
+                      setState(() {
+                        lst.clear();
+                        none();
+                        isselect = 7;
                       });
                     },),
                 ],

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_demo/add_task/chose_screensize_page.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
@@ -26,6 +28,7 @@ const List<String> list_a = <String>[
   'Sport',
   'Birthday'
 ];
+
 const List<String> list_b = <String>[
   'None',
   'Hour',
@@ -49,6 +52,7 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
   DateTime _selectedDate2 = DateTime.now();
 //*************Time picker initializer*************
   TimeOfDay _selectedTime = TimeOfDay.now();
+  bool meassage = false;
 
   @override
   void initState() {
@@ -58,10 +62,6 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
 
   void firebaseInit() {
     try {
-      //Firebase.initializeApp().whenComplete(() {
-
-      // prin != nullt("Initialized");
-      // });
       Add_TaskPage.firestoredb = FirebaseFirestore.instance;
     } catch (ee) {
       print(ee);
@@ -132,188 +132,58 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
       ),
       body: SingleChildScrollView(
         //physics: const BouncingScrollPhysics(),
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-
-                const Row(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
                   children: [
-                    Text(
-                      "Task Title",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      child: SizedBox(
-                        width: 350,
-                        child: TextField(
-                          autofocus: true,
-                          controller: App_Text.task_title,
-                          cursorColor: Colors.green,
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.green.shade200,
-                                //width: 1.5,
-                              ),
-                            ),
 
-                            //********Focus border like hover******************8
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:  const BorderSide(color: Colors.green)),
-                            hintText: "Enter Task",
-                            hintStyle:  TextStyle(color: Colors.green.shade200),
-                          ),
+                    const Row(
+                      children: [
+                        Text(
+                          "Task Title",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Row(
-                  children: [
-                    Text(
-                      "Sub-Title",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      child: SizedBox(
-                        width: 350,
-                        child: TextField(
-                          keyboardType: TextInputType.text,
-                          autofocus: true,
-                          controller: App_Text.sub_title,
-                          cursorColor: Colors.green,
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.green.shade200,
-                                //width: 1.5,
-                              ),
-                            ),
-
-                            //********Focus border like hover******************8
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.green)),
-                            hintText: "Enter Sub-Task",
-                            hintStyle:  TextStyle(color: Colors.green.shade200),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-
-                const Row(
-                  children: [
-                    Text(
-                      "Choose Category",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    Container(
-                        height: 50,
-                        width: 350,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.green.shade200),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: DropdownButtonExample(),
-                        )),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
                     const SizedBox(
                       height: 5,
                     ),
-                    Column(
+                    Row(
                       children: [
-                        const Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 100),
-                              child: Text(
-                                "Date",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        SizedBox(
-                          width: 170,
-                          child: GestureDetector(
-                            onTap: () => _fromDate(context),
-                            child: AbsorbPointer(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
+                        Container(
+                          color: Colors.white,
+                          child: SizedBox(
+                            width: 350,
+                            child: TextField(
+                              autofocus: true,
+                              controller: App_Text.task_title,
+                              cursorColor: Colors.green,
+                              style: const TextStyle(
+                                  color: Colors.black, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: Colors.green.shade200,
+                                    //width: 1.5,
+                                  ),
+                                ),
+
+                                //********Focus border like hover******************8
+                                focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                    borderSide:  BorderSide(
-                                      color: Colors.green.shade200,
-                                      //width: 1.5,
-                                    ),
-                                  ),
-                                  labelText:
-                                  _selectedDate1.toString().substring(0, 10),
-                                  prefixIcon: const Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.green,
-                                  ),
-                                ),
+                                    borderSide:  const BorderSide(color: Colors.green)),
+                                hintText: "Enter Task",
+                                hintStyle:  TextStyle(color: Colors.green.shade200),
                               ),
                             ),
                           ),
@@ -321,291 +191,471 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 20,
                     ),
-                    Column(
+                    const Row(
                       children: [
-                        const Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 100),
-                              child: Text(
-                                "Time",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        SizedBox(
-                            width: 170,
-                            child: InkWell(
-                              child: Container(
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.green.shade200),
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Icon(Icons.lock_clock,color: Colors.green,size: 30,),
-                                    ),
-                                    Text(_selectedTime.format(context))
-                                  ],
-
-                                ),
-                              ),
-                              onTap: (){
-                                _selectTime(context);
-                              },
-                            )
+                        Text(
+                          "Sub-Title",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
                         ),
                       ],
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Row(
-                  children: [
-                    Text(
-                      "Repeat Task",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
+                    const SizedBox(
+                      height: 5,
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    Container(
-                        height: 50,
-                        width: 350,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.green.shade200),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: DropdownButton_B(),
-                        )),
-                  ],
-                ),
-                const SizedBox(height: 20,),
-                const Row(
-                  children: [
-                    Text("Choose Remainder",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 5,),
-                Container(
-                  height: 50,
-                  width: 350,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.green.shade200)
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          child: SizedBox(
+                            width: 350,
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              autofocus: true,
+                              controller: App_Text.sub_title,
+                              cursorColor: Colors.green,
+                              style: const TextStyle(
+                                  color: Colors.black, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: Colors.green.shade200,
+                                    //width: 1.5,
+                                  ),
+                                ),
+
+                                //********Focus border like hover******************8
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.green)),
+                                hintText: "Enter Sub-Task",
+                                hintStyle:  TextStyle(color: Colors.green.shade200),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    const Row(
+                      children: [
+                        Text(
+                          "Choose Category",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            height: 50,
+                            width: 350,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.green.shade200),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: DropdownButtonExample(),
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Remainder",
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Column(
+                          children: [
+                            const Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 100),
+                                  child: Text(
+                                    "Date",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              width: 170,
+                              child: GestureDetector(
+                                onTap: () => _fromDate(context),
+                                child: AbsorbPointer(
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide:  BorderSide(
+                                          color: Colors.green.shade200,
+                                          //width: 1.5,
+                                        ),
+                                      ),
+                                      labelText:
+                                      _selectedDate1.toString().substring(0, 10),
+                                      prefixIcon: const Icon(
+                                        Icons.calendar_month,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Column(
+                          children: [
+                            const Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 100),
+                                  child: Text(
+                                    "Time",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                                width: 170,
+                                child: InkWell(
+                                  child: Container(
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.green.shade200),
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Icon(Icons.lock_clock,color: Colors.green,size: 30,),
+                                        ),
+                                        Text(_selectedTime.format(context))
+                                      ],
+
+                                    ),
+                                  ),
+                                  onTap: (){
+                                    _selectTime(context);
+                                  },
+                                )
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      children: [
+                        Text(
+                          "Repeat Task",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black,fontSize: 18),),
-                        Padding(
-                          padding: EdgeInsets.only(right: 20),
-                          child: Icon(Icons.chevron_right,size: 30,color: Colors.green,),
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            height: 50,
+                            width: 350,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.green.shade200),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: DropdownButton_B(),
+                            )),
+                      ],
+                    ),
+                    const SizedBox(height: 20,),
+                    const Row(
+                      children: [
+                        Text("Choose Remainder",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
                         )
                       ],
                     ),
-                  ),
-                ),
-                const SizedBox(height: 20,),
-                const Row(
-                  children: [
-                    Text("Choose Screen Size && Close Button",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 5,),
-                InkWell(
-                  child: Container(
-                    height: 50,
-                    width: 350,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.green.shade200)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(App_Text.Screen_size,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black,fontSize: 18),),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 20),
-                            child: Icon(Icons.chevron_right,size: 30,color: Colors.green,),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.rightToLeft,
-                        isIos: true,
-                        child: const Screensize_Page(),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Row(
-                  children: [
-                    Text(
-                      "Comments",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
+                    const SizedBox(height: 5,),
                     Container(
-                      color: Colors.white,
-                      child: SizedBox(
-                        //height: 100,
-                        width: 350,
-                        child: TextField(
-                          keyboardType: TextInputType.text,
-                          autofocus: true,
-                          controller: App_Text.comments,
-                          cursorColor: Colors.green,
-                          cursorHeight: 20,
-                          style: const TextStyle(
-                              height: 5,
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.green.shade200,
-                                //width: 1.5,
-                              ),
-                            ),
-
-                            //********Focus border like hover******************8
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.green)),
-                            //hintText: "Enter Sub-Task",
-                            hintStyle:  TextStyle(color: Colors.green.shade200),
-                          ),
+                      height: 50,
+                      width: 350,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.green.shade200)
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Remainder",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, color: Colors.black,fontSize: 18),),
+                            Padding(
+                              padding: EdgeInsets.only(right: 20),
+                              child: Icon(Icons.chevron_right,size: 30,color: Colors.green,),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      child: Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Center(
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(color: Colors.white, fontSize: 20),
-                              ))),
-                      onTap: () async {
-                        setState((){
-                          App_Text.sub_title.clear();
-                        App_Text.task_title.clear();
-                         App_Text.comments.clear();
-                           App_Text.repeat_task = "None";
-                        });
-
-                      },
+                    const SizedBox(height: 20,),
+                    const Row(
+                      children: [
+                        Text("Choose Screen Size && Close Button",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        )
+                      ],
                     ),
+                    const SizedBox(height: 5,),
                     InkWell(
                       child: Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.teal,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Center(
-                              child: Text(
-                                "Save",
-                                style: TextStyle(color: Colors.white, fontSize: 20),
-                              ))),
-                      onTap: () async{
+                        height: 50,
+                        width: 350,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.green.shade200)
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(App_Text.Screen_size,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, color: Colors.black,fontSize: 18),),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 20),
+                                child: Icon(Icons.chevron_right,size: 30,color: Colors.green,),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: (){
                         Navigator.push(
                           context,
                           PageTransition(
-                            type: PageTransitionType.leftToRight,
+                            type: PageTransitionType.rightToLeft,
                             isIos: true,
-                            child:  Bottomnavigation(index: 0),
+                            child: const Screensize_Page(),
                           ),
                         );
-                        print("sending dta");
-                        if(Add_TaskPage.firestoredb is  Null)
-                          {
-                            print("Got Null");
-
-                          }
-                        else {
-                          await Add_TaskPage.firestoredb?.collection(
-                              "goal_getter").add({
-                            "title": App_Text.task_title.text,
-                            "sub_title": App_Text.sub_title.text,
-                            "category":App_Text.category,
-                            "date":_selectedDate1.day.toInt(),
-                            "month":_selectedDate1.month.toInt(),
-                            "year":_selectedDate1.year.toInt(),
-                            "time":_selectedTime.format(context).toString(),
-                            "repeat":App_Text.repeat_task,
-                            "comments":App_Text.comments.text,
-                          });
-                        }
                       },
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      children: [
+                        Text(
+                          "Comments",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          child: SizedBox(
+                            //height: 100,
+                            width: 350,
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              autofocus: true,
+                              controller: App_Text.comments,
+                              cursorColor: Colors.green,
+                              cursorHeight: 20,
+                              style: const TextStyle(
+                                  height: 5,
+                                  color: Colors.black, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: Colors.green.shade200,
+                                    //width: 1.5,
+                                  ),
+                                ),
+
+                                //********Focus border like hover******************8
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.green)),
+                                //hintText: "Enter Sub-Task",
+                                hintStyle:  TextStyle(color: Colors.green.shade200),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          child: Container(
+                              height: 50,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: const Center(
+                                  child: Text(
+                                    "Cancel",
+                                    style: TextStyle(color: Colors.white, fontSize: 20),
+                                  ))),
+                          onTap: () async {
+                            setState((){
+                              App_Text.sub_title.clear();
+                              App_Text.task_title.clear();
+                              App_Text.comments.clear();
+                              App_Text.repeat_task = "None";
+                            });
+
+                          },
+                        ),
+                        InkWell(
+                          child: Container(
+                              height: 50,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  color: Colors.teal,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: const Center(
+                                  child: Text(
+                                    "Save",
+                                    style: TextStyle(color: Colors.white, fontSize: 20),
+                                  ))),
+                          onTap: () async{
+                            if(App_Text.task_title.text.isNotEmpty &&
+                                App_Text.sub_title.text.isNotEmpty &&
+                                App_Text.category.isNotEmpty) {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.leftToRight,
+                                  isIos: true,
+                                  child: Bottomnavigation(index: 0),
+                                ),
+                              );
+                            }
+                            else {
+                              setState(() {
+                                meassage = true;
+                                print(meassage);
+                              });
+
+                            }
+                            print("sending dta");
+                            if(Add_TaskPage.firestoredb is  Null)
+                            {
+                              print("Got Null");
+
+                            }
+                            else {
+                              await Add_TaskPage.firestoredb?.collection(
+                                  "goal_getter").add({
+                                "title": App_Text.task_title.text,
+                                "sub_title": App_Text.sub_title.text,
+                                "category":App_Text.category,
+                                "date":_selectedDate1.day.toInt(),
+                                "month":_selectedDate1.month.toInt(),
+                                "year":_selectedDate1.year.toInt(),
+                                "time":_selectedTime.format(context).toString(),
+                                "repeat":App_Text.repeat_task,
+                                "comments":App_Text.comments.text,
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
-          ),
-        ),
+            if(meassage == true)
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                height: 200,
+                width: 300,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.green.shade200)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Please enter all field",
+                      style: TextStyle(color: Colors.teal,fontSize:20,fontWeight: FontWeight.bold ),),
+                    const SizedBox(height: 30,),
+                    InkWell(
+                      child: Container(
+                        height: 50,
+                        width: 80,
+                        color: Colors.green,
+                        child: const Center(child: Text("Ok",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)),
+                      ),
+                      onTap: (){
+                        setState(() {
+                          meassage = false;
+                        });
+                      },
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
       ),
     );
   }
