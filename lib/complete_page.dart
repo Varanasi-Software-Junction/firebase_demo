@@ -44,7 +44,6 @@ class _CompletePageState extends State<CompletePage> {
         // )
           //continue;
         setState(() {
-          App_Text.Counter++;
           lst.add(TaskList(
             value.get("title").toString(),
             value.get("sub_title").toString(),

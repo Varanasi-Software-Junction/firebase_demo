@@ -87,58 +87,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  //********* Task Overview ***************//
-                  const SizedBox(height: 20,),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 22),
-                    child: Row(
-                      children: [
-                        Text("Task Overview",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 120,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.green.shade100,
-                              border: Border.all(color: Colors.green)
 
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("0",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
-                              Text("Complete Task",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 120,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.green.shade100,
-                              border: Border.all(color: Colors.green)
-
-                          ),
-                          child:  Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("${ App_Text.Counter}",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
-                              Text("Pending Task",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   //************ Category slider *****************//
                   const SizedBox(height: 10,),
                   const Padding(

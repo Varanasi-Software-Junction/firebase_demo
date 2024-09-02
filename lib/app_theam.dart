@@ -28,7 +28,7 @@ class App_Text{
   static String date ="";
   static String month ="";
   static String year ="";
-  static int Counter = 1;
+  static int Counter = 0;
 
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
 

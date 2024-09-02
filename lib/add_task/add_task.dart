@@ -576,43 +576,53 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                             if(App_Text.task_title.text.isNotEmpty &&
                                 App_Text.sub_title.text.isNotEmpty &&
                                 App_Text.category.isNotEmpty) {
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.leftToRight,
-                                  isIos: true,
-                                  child: Bottomnavigation(index: 0),
-                                ),
-                              );
-                            }
+    Navigator.push(
+    context,
+    PageTransition(
+    type: PageTransitionType.leftToRight,
+    isIos: true,
+    child: Bottomnavigation(index: 0),
+    ),
+    );
+    }
+
                             else {
                               setState(() {
                                 meassage = true;
                                 print(meassage);
                               });
-
                             }
                             print("sending dta");
-                            if(Add_TaskPage.firestoredb is  Null)
-                            {
+                            if (Add_TaskPage.firestoredb is Null) {
                               print("Got Null");
-
                             }
-                            else {
+                            if(App_Text.task_title.text.isNotEmpty &&
+                                App_Text.sub_title.text.isNotEmpty &&
+                                App_Text.category.isNotEmpty) {
                               await Add_TaskPage.firestoredb?.collection(
                                   "goal_getter").add({
                                 "title": App_Text.task_title.text,
                                 "sub_title": App_Text.sub_title.text,
-                                "category":App_Text.category,
-                                "date":_selectedDate1.day.toInt(),
-                                "month":_selectedDate1.month.toInt(),
-                                "year":_selectedDate1.year.toInt(),
-                                "time":_selectedTime.format(context).toString(),
-                                "repeat":App_Text.repeat_task,
-                                "comments":App_Text.comments.text,
+                                "category": App_Text.category,
+                                "date": _selectedDate1.day.toInt(),
+                                "month": _selectedDate1.month.toInt(),
+                                "year": _selectedDate1.year.toInt(),
+                                "time": _selectedTime.format(context)
+                                    .toString(),
+                                "repeat": App_Text.repeat_task,
+                                "comments": App_Text.comments.text,
                               });
                             }
-                          },
+
+                            setState(() {
+                             App_Text.sub_title.clear();
+                             App_Text.task_title.clear();
+                             App_Text.comments.clear();
+                             App_Text.category.isEmpty;
+
+
+                            });
+                          }
                         ),
                       ],
                     )

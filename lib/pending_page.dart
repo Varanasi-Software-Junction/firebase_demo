@@ -41,7 +41,6 @@ class _PandingPageState extends State<PandingPage> {
         // if(value.get('title').toString()!='Metting')
         //   continue;
         setState(() {
-          App_Text.Counter++;
           lst.add(TaskList(
             value.get("title").toString(),
             value.get("sub_title").toString(),

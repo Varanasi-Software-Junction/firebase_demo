@@ -1,3 +1,4 @@
+import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/edit_task.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -144,14 +145,15 @@ class _TaskListState extends State<TaskList> {
                         const SizedBox(width: 30,),
                         InkWell(child: const Icon(Icons.edit,color: Colors.green,size: 30,),
                           onTap: (){
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                isIos: true,
-                                child: const Edit_TaskPage(),
-                              ),
-                            );
+                          print(App_Text.lst.toString().);
+                            // Navigator.push(
+                            //   context,
+                            //   PageTransition(
+                            //     type: PageTransitionType.rightToLeft,
+                            //     isIos: true,
+                            //     child: const Edit_TaskPage(),
+                            //   ),
+                            // );
 
                           },
                         )
