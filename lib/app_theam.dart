@@ -20,6 +20,9 @@ class App_Text{
   static TextEditingController sub_title = TextEditingController();
   static TextEditingController comments = TextEditingController();
 
+
+  static TextEditingController edit_task = TextEditingController();
+
   //select var
   static String connection = "";
   static String category="None";

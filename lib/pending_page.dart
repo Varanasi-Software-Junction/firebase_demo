@@ -41,7 +41,9 @@ class _PandingPageState extends State<PandingPage> {
         // if(value.get('title').toString()!='Metting')
         //   continue;
         setState(() {
+          //print(value.get("comments").toString());
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -49,18 +51,13 @@ class _PandingPageState extends State<PandingPage> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
+            value.get("comments").toString(),
 
           ));
-
-          //******************** value initlization*******************************//
-          App_Text.date = value.get("date").toString();
-          App_Text.month = value.get("month").toString();
-          App_Text.year = value.get("year").toString();
 
 
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
-        print(TimeOfDay.hoursPerDay);
       }
     });
     setState(() {

@@ -48,12 +48,14 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
+            value.get("id"),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
             value.get("date").toString(),
             value.get("month").toString(),
             value.get("year").toString(),
+            value.get("category").toString(),
             value.get("category").toString(),
 
           ));
@@ -77,14 +79,14 @@ class _CategoryState extends State<Category> {
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
         if(value.get('category').toString() !="Office Work".toString() ||
             value.get('date').toString() != DateTime.now().day.toString()
         )
           continue;
         setState(() {
-          App_Text.lst.add(TaskList(
+          lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -92,9 +94,8 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-
+            value.get("category").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
@@ -122,12 +123,14 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
             value.get("date").toString(),
             value.get("month").toString(),
             value.get("year").toString(),
+            value.get("category").toString(),
             value.get("category").toString(),
 
           ));
@@ -159,12 +162,14 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
             value.get("date").toString(),
             value.get("month").toString(),
             value.get("year").toString(),
+            value.get("category").toString(),
             value.get("category").toString(),
 
           ));
@@ -196,12 +201,14 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
             value.get("date").toString(),
             value.get("month").toString(),
             value.get("year").toString(),
+            value.get("category").toString(),
             value.get("category").toString(),
 
           ));
@@ -217,6 +224,8 @@ class _CategoryState extends State<Category> {
 
 
   }
+
+
   Future<void> birthday() async {
     dynamic result =
     await Category.firestoredb?.collection("goal_getter").snapshots();
@@ -232,12 +241,14 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
             value.get("date").toString(),
             value.get("month").toString(),
             value.get("year").toString(),
+            value.get("category").toString(),
             value.get("category").toString(),
 
           ));
@@ -267,12 +278,14 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
             value.get("date").toString(),
             value.get("month").toString(),
             value.get("year").toString(),
+            value.get("category").toString(),
             value.get("category").toString(),
 
           ));
@@ -303,6 +316,7 @@ class _CategoryState extends State<Category> {
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -310,12 +324,14 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
+            value.get("category").toString(),
 
           ));
 
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
+        print(value.id);
       }
     });
     setState(() {
@@ -333,11 +349,16 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
 
+
       for (var value in element.docs) {
         if(value.get('date').toString() != DateTime.now().day.toString())
+         //   print("Id==");
+         // print(value.id);
           continue;
         setState(() {
+
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -345,17 +366,18 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
+            value.get("comments").toString(),
 
           ));
 
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
-        print(TimeOfDay.hoursPerDay);
+
       }
     });
     setState(() {
     });
-    print(firebasedata);
+   // print(firebasedata);
 
 
   }
@@ -660,7 +682,7 @@ class _CategoryState extends State<Category> {
             ),
             const SizedBox(height: 20,),
             Column(
-              children: App_Text.lst,
+              children: lst,
             ),
           ],
         ),

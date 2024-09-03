@@ -45,6 +45,7 @@ if(value.get('date').toString() != DateTime.now().day.toString())
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
+              value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -52,14 +53,9 @@ if(value.get('date').toString() != DateTime.now().day.toString())
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
+            value.get("comments").toString(),
 
           ));
-
-          //******************** value initlization*******************************//
-          App_Text.date = value.get("date").toString();
-          App_Text.month = value.get("month").toString();
-          App_Text.year = value.get("year").toString();
-
 
         });
         firebasedata = firebasedata + value.data().toString() + "\n";

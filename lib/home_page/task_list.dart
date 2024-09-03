@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 
 class TaskList extends StatefulWidget {
   // TaskList({super.key});
+  String id ="";
   String title = "";
   String sub_title = "";
   String time = "";
@@ -12,10 +13,12 @@ class TaskList extends StatefulWidget {
   String month = "";
   String year = "";
   String category = "";
+  String comments = "";
   @override
   State<TaskList> createState() => _TaskListState();
 
   TaskList(
+      String id,
       String title,
       String sub_title,
       String time,
@@ -23,7 +26,10 @@ class TaskList extends StatefulWidget {
       String month,
       String year,
       String category,
+      String comments,
       ) {
+    this.id = id;
+    App_Text.edit_task.text = id;
     this.title = title;
     this.sub_title = sub_title;
     this.time = time;
@@ -31,6 +37,7 @@ class TaskList extends StatefulWidget {
     this.month = month;
     this.year = year;
     this.category = category;
+    this.comments = comments;
   }
 }
 
@@ -120,6 +127,11 @@ class _TaskListState extends State<TaskList> {
                           const Text("-"),
                           Text(widget.year,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16
     ),),
+                          SizedBox(
+                            width: 50,
+                            child: Text(widget.comments,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 7
+                            ),),
+                          ),
                         ],
                       )
                     ],
@@ -145,15 +157,23 @@ class _TaskListState extends State<TaskList> {
                         const SizedBox(width: 30,),
                         InkWell(child: const Icon(Icons.edit,color: Colors.green,size: 30,),
                           onTap: (){
-                          print(App_Text.lst.toString().);
-                            // Navigator.push(
-                            //   context,
-                            //   PageTransition(
-                            //     type: PageTransitionType.rightToLeft,
-                            //     isIos: true,
-                            //     child: const Edit_TaskPage(),
-                            //   ),
-                            // );
+                            App_Text.edit_task.text = widget.id;
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                isIos: true,
+                                child:  Edit_TaskPage(
+                                  "${widget.title}",
+                                    "${widget.sub_title} ",
+                                    "${widget.comments}",
+                                    "${widget.time}",
+                                    "${widget.date}",
+                                    "${widget.month}",
+                                    "${widget.year}",
+                                ),
+                              ),
+                            );
 
                           },
                         )

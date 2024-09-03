@@ -12,6 +12,7 @@ const List<String> list_a = <String>[
   'Sport',
   'Birthday'
 ];
+
 const List<String> list_b = <String>[
   'None',
   'Hour',
@@ -22,10 +23,34 @@ const List<String> list_b = <String>[
 ];
 
 class Edit_TaskPage extends StatefulWidget {
-  const Edit_TaskPage({super.key});
+  String title = "";
+  String sub_title = "";
+  String comments = "";
+  String time = "";
+  String day = "";
+  String month = "";
+  String year = "";
+  //const Edit_TaskPage({super.key});
 
   @override
   State<Edit_TaskPage> createState() => _Edit_TaskPageState();
+  Edit_TaskPage(
+    String title,
+    String sub_title,
+    String comments,
+    String time,
+    String day,
+    String month,
+    String year,
+  ) {
+    this.title = title;
+    this.sub_title = sub_title;
+    this.comments = comments;
+    this.time = time;
+    this.day = day;
+    this.month = month;
+    this.year = year;
+  }
 }
 
 class _Edit_TaskPageState extends State<Edit_TaskPage> {
@@ -34,7 +59,11 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
 //*************Time picker initializer*************
   TimeOfDay _selectedTime = TimeOfDay.now();
 
-  bool delet = true;
+
+  final myController = TextEditingController();
+  final sub_title = TextEditingController();
+  final comments = TextEditingController();
+
 
   Future<void> _fromDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -79,6 +108,9 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    myController.text = widget.title;
+    sub_title.text = widget.sub_title;
+    comments.text = widget.comments;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -96,10 +128,10 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
         ),
         title: const Center(
             child: Text(
-              "Edit Task",
-              style: TextStyle(
-                  color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 25),
-            )),
+          "Edit Task",
+          style: TextStyle(
+              color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 25),
+        )),
       ),
       body: SingleChildScrollView(
         //physics: const BouncingScrollPhysics(),
@@ -132,6 +164,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                         width: 350,
                         child: TextField(
                           autofocus: true,
+                           controller: myController,
                           cursorColor: Colors.green,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
@@ -148,7 +181,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
-                                const BorderSide(color: Colors.green)),
+                                    const BorderSide(color: Colors.green)),
                             hintText: "Enter Task",
                             hintStyle: TextStyle(color: Colors.green.shade200),
                           ),
@@ -181,6 +214,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                         child: TextField(
                           keyboardType: TextInputType.number,
                           autofocus: true,
+                          controller: sub_title,
                           cursorColor: Colors.green,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
@@ -197,7 +231,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
-                                const BorderSide(color: Colors.green)),
+                                    const BorderSide(color: Colors.green)),
                             hintText: "Enter Sub-Task",
                             hintStyle: TextStyle(color: Colors.green.shade200),
                           ),
@@ -249,9 +283,9 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                         const Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 100),
+                              padding: EdgeInsets.only(right: 80),
                               child: Text(
-                                "Date",
+                                "Previous Time",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.green),
@@ -263,31 +297,29 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                           height: 5,
                         ),
                         SizedBox(
-                          width: 170,
-                          child: GestureDetector(
-                            onTap: () => _fromDate(context),
-                            child: AbsorbPointer(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(
-                                      color: Colors.green.shade200,
-                                      //width: 1.5,
+                            width: 170,
+                            child: Container(
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.green.shade200),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Icon(
+                                      Icons.lock_clock,
+                                      color: Colors.green,
+                                      size: 30,
                                     ),
                                   ),
-                                  labelText: _selectedDate1
-                                      .toString()
-                                      .substring(0, 10),
-                                  prefixIcon: const Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.green,
-                                  ),
-                                ),
+                                  Text(widget.time)
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
+
+
                       ],
                     ),
                     const SizedBox(
@@ -298,9 +330,9 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                         const Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 100),
+                              padding: EdgeInsets.only(right: 80),
                               child: Text(
-                                "Time",
+                                "Edit Time",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.green),
@@ -338,6 +370,109 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                 _selectTime(context);
                               },
                             )),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Column(
+                      children: [
+                        const Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 80),
+                              child: Text(
+                                "Previous Date",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          width: 170,
+                          child: AbsorbPointer(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: Colors.green.shade200,
+                                    //width: 1.5,
+                                  ),
+                                ),
+                                labelText: "${widget.year}-${widget.month}-${widget.day}",
+
+                                prefixIcon: const Icon(
+                                  Icons.calendar_month,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Column(
+                      children: [
+                        const Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 80),
+                              child: Text(
+                                "Edit Date",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          width: 170,
+                          child: GestureDetector(
+                            onTap: () => _fromDate(context),
+                            child: AbsorbPointer(
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.green.shade200,
+                                      //width: 1.5,
+                                    ),
+                                  ),
+                                  labelText: _selectedDate1
+                                      .toString()
+                                      .substring(0, 10),
+                                  prefixIcon: const Icon(
+                                    Icons.calendar_month,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -497,6 +632,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                         width: 350,
                         child: TextField(
                           keyboardType: TextInputType.text,
+                          controller: comments,
                           autofocus: true,
                           cursorColor: Colors.green,
                           cursorHeight: 20,
@@ -517,7 +653,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
-                                const BorderSide(color: Colors.green)),
+                                    const BorderSide(color: Colors.green)),
                             //hintText: "Enter Sub-Task",
                             hintStyle: TextStyle(color: Colors.green.shade200),
                           ),
@@ -541,11 +677,11 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                               borderRadius: BorderRadius.circular(10)),
                           child: const Center(
                               child: Text(
-                                "Delete",
-                                style: TextStyle(color: Colors.white, fontSize: 20),
-                              ))),
+                            "Delete",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ))),
                       onTap: () {
-                        if (delet == true && App_Text.connection != 'none') {
+                        if (App_Text.connection != 'none') {
                           showModalBottomSheet<void>(
                             context: context,
                             builder: (BuildContext context) {
@@ -561,27 +697,27 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                       ),
                                       const Center(
                                           child: Text(
-                                            "Are You Sure!",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25),
-                                          )),
+                                        "Are You Sure!",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25),
+                                      )),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       const Center(
                                           child: Text(
-                                            "Do you really want to delete this task",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.green),
-                                          )),
+                                        "Do you really want to delete this task",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      )),
                                       const SizedBox(
                                         height: 50,
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           InkWell(
                                             child: Container(
@@ -591,12 +727,12 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                                       color: Colors.green)),
                                               child: const Center(
                                                   child: Text(
-                                                    "No",
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.green),
-                                                  )),
+                                                "No",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.green),
+                                              )),
                                             ),
                                             onTap: () {
                                               Navigator.pop(context);
@@ -611,12 +747,12 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                                       color: Colors.green)),
                                               child: const Center(
                                                   child: Text(
-                                                    "Yes",
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.white),
-                                                  )),
+                                                "Yes",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              )),
                                             ),
                                             onTap: () {
                                               Navigator.push(
@@ -625,7 +761,8 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                                   type: PageTransitionType
                                                       .leftToRight,
                                                   isIos: true,
-                                                  child: Bottomnavigation(index: 0),
+                                                  child: Bottomnavigation(
+                                                      index: 0),
                                                 ),
                                               );
                                               // if(Platform.isAndroid){
@@ -655,9 +792,9 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                               borderRadius: BorderRadius.circular(10)),
                           child: const Center(
                               child: Text(
-                                "Save",
-                                style: TextStyle(color: Colors.white, fontSize: 20),
-                              ))),
+                            "Save",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ))),
                       onTap: () {
                         Navigator.push(
                           context,

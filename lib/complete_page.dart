@@ -45,6 +45,7 @@ class _CompletePageState extends State<CompletePage> {
           //continue;
         setState(() {
           lst.add(TaskList(
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -52,7 +53,7 @@ class _CompletePageState extends State<CompletePage> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
 
         });
