@@ -20,7 +20,6 @@ class _PandingPageState extends State<PandingPage> {
     super.initState();
     firebaseInit();
     getmessages();
-
   }
 
   void firebaseInit() {

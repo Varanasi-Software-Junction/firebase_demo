@@ -40,12 +40,12 @@ class _TaskPageState extends State<TaskPage> {
     ms.forEach((element) {
 
       for (var value in element.docs) {
-if(value.get('date').toString() != DateTime.now().day.toString())
-  continue;
+        if(value.get('date').toString() != DateTime.now().day.toString())
+          continue;
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
-              value.id.toString(),
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),

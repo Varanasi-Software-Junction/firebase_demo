@@ -94,7 +94,6 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(15.0),
                     child: Category(),
                   ),
-                  //******** Task ****************//
 
                 ],
               ),

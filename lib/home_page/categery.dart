@@ -18,11 +18,15 @@ class _CategoryState extends State<Category> {
   int counter = 0;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     firebaseInit();
+    setState(() {
+      App_Text.Counter = 0;
+    });
+    lst.clear();
     category();
-    App_Text.Counter = 0;
+
   }
 
   void firebaseInit() {
@@ -32,23 +36,23 @@ class _CategoryState extends State<Category> {
       print(ee);
     }
   }
+
   //************* According to category devide the today task fun() ****************//
   List<Widget> lst = [];
   Future<void> persional() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('category').toString() !="Personal".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
+        // value.update("");
+        if (value.get('category').toString() != "Personal".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
-            value.get("id"),
+            value.id.toString(),
             value.get("title").toString(),
             value.get("sub_title").toString(),
             value.get("time").toString(),
@@ -56,33 +60,26 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> office_work() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if(value.get('category').toString() !="Office Work".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
+        if (value.get('category').toString() != "Office Work".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
@@ -94,32 +91,26 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
+            value.get("comments").toString(),
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> workout() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('category').toString() !="Workout".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
+        if (value.get('category').toString() != "Workout".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
@@ -131,34 +122,26 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> yoga() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('category').toString() !="Yoga".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
+        if (value.get('category').toString() != "Yoga".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
@@ -170,34 +153,26 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> sport() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('category').toString() !="Sport".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
+        if (value.get('category').toString() != "Sport".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
@@ -209,35 +184,26 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> birthday() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('category').toString() !="Birthday".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
-
+        if (value.get('category').toString() != "Birthday".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
@@ -249,32 +215,26 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
   }
-
 
   Future<void> none() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('category').toString() !="None".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString()
-        )
+        if (value.get('category').toString() != "None".toString() ||
+            value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           lst.add(TaskList(
@@ -286,32 +246,25 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> category() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('date').toString() != DateTime.now().day.toString())
+        if (value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           App_Text.Counter++;
@@ -324,39 +277,30 @@ class _CategoryState extends State<Category> {
             value.get("month").toString(),
             value.get("year").toString(),
             value.get("category").toString(),
-            value.get("category").toString(),
-
+            value.get("comments").toString(),
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
         print(value.id);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
-
-
   }
-
 
   Future<void> All() async {
     dynamic result =
-    await Category.firestoredb?.collection("goal_getter").snapshots();
+        await Category.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
-
       for (var value in element.docs) {
-        if(value.get('date').toString() != DateTime.now().day.toString())
-         //   print("Id==");
-         // print(value.id);
+        if (value.get('date').toString() != DateTime.now().day.toString())
+          //   print("Id==");
+          // print(value.id);
           continue;
         setState(() {
-
           lst.add(TaskList(
             value.id.toString(),
             value.get("title").toString(),
@@ -367,39 +311,42 @@ class _CategoryState extends State<Category> {
             value.get("year").toString(),
             value.get("category").toString(),
             value.get("comments").toString(),
-
           ));
-
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
-
       }
     });
-    setState(() {
-    });
-   // print(firebasedata);
-
-
+    setState(() {});
+    // print(firebasedata);
   }
 
   _FirebaseDemoState() {}
   String firebasedata = "data";
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         const Padding(
           padding: EdgeInsets.only(left: 15),
           child: Row(
             children: [
-              Text("Task Overview",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
+              Text(
+                "Task Overview",
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Row(
@@ -411,14 +358,22 @@ class _CategoryState extends State<Category> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.green.shade100,
-                    border: Border.all(color: Colors.green)
-
-                ),
+                    border: Border.all(color: Colors.green)),
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("0",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
-                    Text("Complete Task",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                    Text(
+                      "0",
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Complete Task",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
               ),
@@ -428,21 +383,31 @@ class _CategoryState extends State<Category> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.green.shade100,
-                    border: Border.all(color: Colors.green)
-
-                ),
-                child:  Column(
+                    border: Border.all(color: Colors.green)),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("${ App_Text.Counter}",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
-                    Text("Pending Task",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                    Text(
+                      "${App_Text.Counter}",
+                      style: const TextStyle(
+                          color: Colors.green,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const Text(
+                      "Pending Task",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 30,),
+        const SizedBox(
+          height: 30,
+        ),
         Column(
           children: [
             SingleChildScrollView(
@@ -461,14 +426,16 @@ class _CategoryState extends State<Category> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
                                 child: Text(
                               "All",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: isselect != 0 ? Colors.black : Colors.white,
+                                color:
+                                    isselect != 0 ? Colors.black : Colors.white,
                               ),
                             ))),
                         onTap: () {
@@ -492,14 +459,16 @@ class _CategoryState extends State<Category> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
                                 child: Text(
                               "Personal",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: isselect != 1 ? Colors.black : Colors.white,
+                                color:
+                                    isselect != 1 ? Colors.black : Colors.white,
                               ),
                             ))),
                         onTap: () {
@@ -507,115 +476,142 @@ class _CategoryState extends State<Category> {
                             lst.clear();
                             isselect = 1;
                             persional();
-
                           });
                         },
                       ),
-                      const SizedBox(width: 10,),
-                      InkWell(child:
-                      Container(
-                        height: 30,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: isselect != 2
-                                  ? Colors.white
-                                  : Colors.green.shade300,
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: Colors.green.shade300)),
-                          child: Center(
-                            child: Text("Office Work",
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: isselect != 2 ? Colors.black : Colors.white,
-                            ),),
-                          )),
-                        onTap: (){
-                        setState(() {
-                          lst.clear();
-                          office_work();
-                          isselect=2;
-                        });
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        child: Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 2
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                              child: Text(
+                                "Office Work",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: isselect != 2
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                              ),
+                            )),
+                        onTap: () {
+                          setState(() {
+                            lst.clear();
+                            office_work();
+                            isselect = 2;
+                          });
                         },
                       ),
-                      const SizedBox(width: 10,),
-
-                      InkWell(
-                          child: Container(
-                            height: 30,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  color: isselect != 3
-                                      ? Colors.white
-                                      : Colors.green.shade300,
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(color: Colors.green.shade300)),
-                              child: Center(
-                                  child: Text("Workout",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 3 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
-                            setState(() {
-                              lst.clear();
-                              workout();
-                              isselect=3;
-                            });
-                        },
+                      const SizedBox(
+                        width: 10,
                       ),
-                      const SizedBox(width: 10,),
                       InkWell(
-                          child: Container(
+                        child: Container(
                             height: 30,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  color: isselect != 4
-                                      ? Colors.white
-                                      : Colors.green.shade300,
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(color: Colors.green.shade300)),
-                              child: Center(child: Text("Yoga",
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 3
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                                child: Text(
+                              "Workout",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: isselect != 4 ? Colors.black : Colors.white,
-                              ),))),
-                      onTap: (){
-                            setState(() {
-                              lst.clear();
-                              yoga();
-                              isselect = 4;
-                            });
-                      },),
-                      const SizedBox(width: 10,),
+                                color:
+                                    isselect != 3 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
+                          setState(() {
+                            lst.clear();
+                            workout();
+                            isselect = 3;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
-                          child: Container(
+                        child: Container(
                             height: 30,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  color: isselect != 5
-                                      ? Colors.white
-                                      : Colors.green.shade300,
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(color: Colors.green.shade300)),
-                              child: Center(
-                                  child: Text("Sport",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 5 ? Colors.black : Colors.white,
-                                  ),))),
-                      onTap: (){
-                        setState(() {
-                          lst.clear();
-                          sport();
-                          isselect = 5;
-                        });
-                        },),
-
-                      const SizedBox(width: 10,),
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 4
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                                child: Text(
+                              "Yoga",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 4 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
+                          setState(() {
+                            lst.clear();
+                            yoga();
+                            isselect = 4;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        child: Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 5
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                                child: Text(
+                              "Sport",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 5 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
+                          setState(() {
+                            lst.clear();
+                            sport();
+                            isselect = 5;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -625,23 +621,29 @@ class _CategoryState extends State<Category> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("Birthday",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 6 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
+                                child: Text(
+                              "Birthday",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 6 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
                             lst.clear();
                             birthday();
                             isselect = 6;
                           });
-                        },),
-
-                      const SizedBox(width: 10,),
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -651,36 +653,51 @@ class _CategoryState extends State<Category> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("Other",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 7 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
+                                child: Text(
+                              "Other",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 7 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
                             lst.clear();
                             none();
                             isselect = 7;
                           });
-                        },),
+                        },
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-              const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             const Padding(
               padding: EdgeInsets.only(left: 15),
               child: Row(
                 children: [
-                  Text("Today's Task",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),)
+                  Text(
+                    "Today's Task",
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  )
                 ],
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Column(
               children: lst,
             ),
@@ -690,18 +707,3 @@ class _CategoryState extends State<Category> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

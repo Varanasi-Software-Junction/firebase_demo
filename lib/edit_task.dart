@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/add_task/chose_screensize_page.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
+import 'package:firebase_demo/home_page/task_list.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -23,6 +25,7 @@ const List<String> list_b = <String>[
 ];
 
 class Edit_TaskPage extends StatefulWidget {
+  static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
   String title = "";
   String sub_title = "";
   String comments = "";
@@ -30,6 +33,7 @@ class Edit_TaskPage extends StatefulWidget {
   String day = "";
   String month = "";
   String year = "";
+  String id = "";
   //const Edit_TaskPage({super.key});
 
   @override
@@ -42,6 +46,7 @@ class Edit_TaskPage extends StatefulWidget {
     String day,
     String month,
     String year,
+    String id,
   ) {
     this.title = title;
     this.sub_title = sub_title;
@@ -50,6 +55,7 @@ class Edit_TaskPage extends StatefulWidget {
     this.day = day;
     this.month = month;
     this.year = year;
+    this.id = id;
   }
 }
 
@@ -104,6 +110,83 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
         _selectedTime = picked;
       });
     }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    firebaseInit();
+  }
+
+  void firebaseInit() {
+    try {
+
+      Edit_TaskPage.firestoredb = FirebaseFirestore.instance;
+    } catch (ee) {
+      print(ee);
+    }
+  }
+  
+  List<Widget> lst = [];
+  Future<void> getmessages() async {
+    dynamic result =
+    await Edit_TaskPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+
+      for (var value in element.docs) {
+        if(value.get('date').toString() != DateTime.now().day.toString())
+          continue;
+        setState(() {
+          App_Text.Counter++;
+          lst.add(TaskList(
+            value.id.toString(),
+            value.get("title").toString(),
+            value.get("sub_title").toString(),
+            value.get("time").toString(),
+            value.get("date").toString(),
+            value.get("month").toString(),
+            value.get("year").toString(),
+            value.get("category").toString(),
+            value.get("comments").toString(),
+
+          ));
+
+        });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+        print(TimeOfDay.hoursPerDay);
+      }
+    });
+    setState(() {
+    });
+    print(firebasedata);
+
+
+  }
+
+  _FirebaseDemoState() {}
+  String firebasedata = "data";
+
+
+  void deleteMessages(String id) async {
+    print("hii");
+    dynamic result =
+    await Edit_TaskPage.firestoredb?.collection("goal_getter").get();
+    QuerySnapshot messages = result;
+    for (var message in messages.docs) {
+     // firebasedata = firebasedata + message.data().toString() + "\n";
+       String msgfrom = message.id;
+       if (msgfrom == id){
+        Edit_TaskPage.firestoredb
+            ?.collection("goal_getter")
+            .doc(message.id)
+             .delete();
+      break;
+      }
+    }
+    //print(firebasedata);
+    //setState(() {});
   }
 
   @override
@@ -681,7 +764,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ))),
                       onTap: () {
-                        if (App_Text.connection != 'none') {
+                        print("click delete");
                           showModalBottomSheet<void>(
                             context: context,
                             builder: (BuildContext context) {
@@ -690,7 +773,6 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                 color: Colors.green.shade100,
                                 child: Center(
                                   child: Column(
-                                    // mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       const SizedBox(
                                         height: 20,
@@ -755,6 +837,9 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                               )),
                                             ),
                                             onTap: () {
+                                              print(widget.id);
+                                              deleteMessages(widget.id);
+                                              //Navigator.pop(context);
                                               Navigator.push(
                                                 context,
                                                 PageTransition(
@@ -765,11 +850,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                                       index: 0),
                                                 ),
                                               );
-                                              // if(Platform.isAndroid){
-                                              //   SystemNavigator.pop();
-                                              // }else{
-                                              //   exit(0);
-                                              // }
+
                                             },
                                           )
                                         ],
@@ -780,7 +861,6 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                               );
                             },
                           );
-                        }
                       },
                     ),
                     InkWell(
@@ -792,18 +872,21 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                               borderRadius: BorderRadius.circular(10)),
                           child: const Center(
                               child: Text(
-                            "Save",
+                            "Edit",
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ))),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.leftToRight,
-                            isIos: true,
-                            child: Bottomnavigation(index: 0),
-                          ),
-                        );
+                        setState(() {
+                          print(myController.text);
+                        });
+                        // Navigator.push(
+                        //   context,
+                        //   PageTransition(
+                        //     type: PageTransitionType.leftToRight,
+                        //     isIos: true,
+                        //     child: Bottomnavigation(index: 0),
+                        //   ),
+                        // );
                       },
                     ),
                   ],
@@ -816,6 +899,10 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
     );
   }
 }
+
+
+
+
 
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});
@@ -861,6 +948,12 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
     );
   }
 }
+
+
+
+
+
+
 
 class DropdownButton_B extends StatefulWidget {
   const DropdownButton_B({super.key});
