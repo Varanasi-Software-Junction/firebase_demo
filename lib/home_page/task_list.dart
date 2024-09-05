@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/edit_task.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class TaskList extends StatefulWidget {
     this.year = value.get("year").toString();
     this.category = value.get("category").toString();
     this.comments = value.get("comments").toString();
+
   }
 }
 
@@ -200,6 +202,7 @@ class _TaskListState extends State<TaskList> {
                                 type: PageTransitionType.rightToLeft,
                                 isIos: true,
                                 child: Edit_TaskPage(
+                                  "${widget.value}",
                                   "${widget.title}",
                                   "${widget.sub_title} ",
                                   "${widget.comments}",
@@ -207,7 +210,7 @@ class _TaskListState extends State<TaskList> {
                                   "${widget.date}",
                                   "${widget.month}",
                                   "${widget.year}",
-                                  "${widget.id}",
+                                  "${widget.id}"
                                 ),
                               ),
                             );

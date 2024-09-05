@@ -25,7 +25,8 @@ class App_Text{
 
   //select var
   static String connection = "";
-  static String category="None";
+  static String category = "";
+  static String time = "";
   static String Screen_size="None";
   static String repeat_task="";
   static String date ="";

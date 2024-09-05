@@ -26,6 +26,7 @@ const List<String> list_b = <String>[
 
 class Edit_TaskPage extends StatefulWidget {
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
+  dynamic value;
   String title = "";
   String sub_title = "";
   String comments = "";
@@ -39,6 +40,7 @@ class Edit_TaskPage extends StatefulWidget {
   @override
   State<Edit_TaskPage> createState() => _Edit_TaskPageState();
   Edit_TaskPage(
+    dynamic value,
     String title,
     String sub_title,
     String comments,
@@ -48,6 +50,7 @@ class Edit_TaskPage extends StatefulWidget {
     String year,
     String id,
   ) {
+    this.value = value;
     this.title = title;
     this.sub_title = sub_title;
     this.comments = comments;
@@ -65,11 +68,9 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
 //*************Time picker initializer*************
   TimeOfDay _selectedTime = TimeOfDay.now();
 
-
   final myController = TextEditingController();
   final sub_title = TextEditingController();
   final comments = TextEditingController();
-
 
   Future<void> _fromDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -113,14 +114,13 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     firebaseInit();
   }
 
   void firebaseInit() {
     try {
-
       Edit_TaskPage.firestoredb = FirebaseFirestore.instance;
     } catch (ee) {
       print(ee);
@@ -130,30 +130,46 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
   List<Widget> lst = [];
   Future<void> getmessages() async {
     dynamic result =
-    await Edit_TaskPage.firestoredb?.collection("goal_getter").snapshots();
+        await Edit_TaskPage.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
-
       for (var value in element.docs) {
-        if(value.get('date').toString() != DateTime.now().day.toString())
+        if (value.get('date').toString() != DateTime.now().day.toString())
           continue;
         setState(() {
           App_Text.Counter++;
-          lst.add(TaskList(
-            value
-          ));
-
+          lst.add(TaskList(value));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
+  }
 
-
+  Future<void> editmessages() async {
+    dynamic result =
+        await Edit_TaskPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        print(value.runtimeType);
+        // setState(() {
+        //   App_Text.Counter++;
+        //   lst.add(TaskList(
+        //     value
+        //   )
+        //   );
+        // });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+        print(TimeOfDay.hoursPerDay);
+      }
+    });
+    setState(() {});
+    print(firebasedata);
   }
 
   _FirebaseDemoState() {}
@@ -163,17 +179,17 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
   void deleteMessages(String id) async {
     print("hii");
     dynamic result =
-    await Edit_TaskPage.firestoredb?.collection("goal_getter").get();
+        await Edit_TaskPage.firestoredb?.collection("goal_getter").get();
     QuerySnapshot messages = result;
     for (var message in messages.docs) {
-     // firebasedata = firebasedata + message.data().toString() + "\n";
-       String msgfrom = message.id;
-       if (msgfrom == id){
+      // firebasedata = firebasedata + message.data().toString() + "\n";
+      String msgfrom = message.id;
+      if (msgfrom == id) {
         Edit_TaskPage.firestoredb
             ?.collection("goal_getter")
             .doc(message.id)
-             .delete();
-      break;
+            .delete();
+        break;
       }
     }
     //print(firebasedata);
@@ -238,7 +254,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                         width: 350,
                         child: TextField(
                           autofocus: true,
-                           controller: myController,
+                          controller: myController,
                           cursorColor: Colors.green,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
@@ -286,7 +302,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                       child: SizedBox(
                         width: 350,
                         child: TextField(
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           autofocus: true,
                           controller: sub_title,
                           cursorColor: Colors.green,
@@ -375,8 +391,8 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                             child: Container(
                               height: 60,
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.green.shade200),
+                                  border:
+                                      Border.all(color: Colors.green.shade200),
                                   borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 children: [
@@ -392,8 +408,6 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                 ],
                               ),
                             )),
-
-
                       ],
                     ),
                     const SizedBox(
@@ -451,7 +465,6 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -488,8 +501,8 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                                     //width: 1.5,
                                   ),
                                 ),
-                                labelText: "${widget.year}-${widget.month}-${widget.day}",
-
+                                labelText:
+                                    "${widget.year}-${widget.month}-${widget.day}",
                                 prefixIcon: const Icon(
                                   Icons.calendar_month,
                                   color: Colors.green,
@@ -756,102 +769,101 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                           ))),
                       onTap: () {
                         print("click delete");
-                          showModalBottomSheet<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: 300,
-                                color: Colors.green.shade100,
-                                child: Center(
-                                  child: Column(
-                                    children: <Widget>[
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      const Center(
-                                          child: Text(
-                                        "Are You Sure!",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25),
-                                      )),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      const Center(
-                                          child: Text(
-                                        "Do you really want to delete this task",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green),
-                                      )),
-                                      const SizedBox(
-                                        height: 50,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          InkWell(
-                                            child: Container(
-                                              width: 70,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.green)),
-                                              child: const Center(
-                                                  child: Text(
-                                                "No",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.green),
-                                              )),
-                                            ),
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 300,
+                              color: Colors.green.shade100,
+                              child: Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    const Center(
+                                        child: Text(
+                                      "Are You Sure!",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25),
+                                    )),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    const Center(
+                                        child: Text(
+                                      "Do you really want to delete this task",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green),
+                                    )),
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        InkWell(
+                                          child: Container(
+                                            width: 70,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.green)),
+                                            child: const Center(
+                                                child: Text(
+                                              "No",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green),
+                                            )),
                                           ),
-                                          InkWell(
-                                            child: Container(
-                                              width: 70,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                  border: Border.all(
-                                                      color: Colors.green)),
-                                              child: const Center(
-                                                  child: Text(
-                                                "Yes",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              )),
-                                            ),
-                                            onTap: () {
-                                              print(widget.id);
-                                              deleteMessages(widget.id);
-                                              //Navigator.pop(context);
-                                              Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType
-                                                      .leftToRight,
-                                                  isIos: true,
-                                                  child: Bottomnavigation(
-                                                      index: 0),
-                                                ),
-                                              );
-
-                                            },
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        InkWell(
+                                          child: Container(
+                                            width: 70,
+                                            decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                border: Border.all(
+                                                    color: Colors.green)),
+                                            child: const Center(
+                                                child: Text(
+                                              "Yes",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )),
+                                          ),
+                                          onTap: () {
+                                            print(widget.id);
+                                            deleteMessages(widget.id);
+                                            //Navigator.pop(context);
+                                            Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                isIos: true,
+                                                child:
+                                                    Bottomnavigation(index: 0),
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              );
-                            },
-                          );
+                              ),
+                            );
+                          },
+                        );
                       },
                     ),
                     InkWell(
@@ -867,17 +879,31 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ))),
                       onTap: () {
-                        setState(() {
-                          print(myController.text);
-                        });
-                        // Navigator.push(
-                        //   context,
-                        //   PageTransition(
-                        //     type: PageTransitionType.leftToRight,
-                        //     isIos: true,
-                        //     child: Bottomnavigation(index: 0),
-                        //   ),
-                        // );
+                        var collection = FirebaseFirestore.instance
+                            .collection('goal_getter');
+                        collection
+                            .doc(widget.id)
+                            .update({
+                          'title': '${myController.text}',
+                          'sub_title': '${sub_title.text}',
+                          'comments': '${comments.text}',
+                          'category': '${App_Text.category}',
+                           'time': '${_selectedTime.format(context)}',
+                           'date': '${_selectedDate1.day}',
+                           'month': '${_selectedDate1.month}',
+                           'year': '${_selectedDate1.year}',
+                            }) // <-- Updated data
+                            .then((_) => print('Success'))
+                            .catchError((error) => print('Failed: $error'));
+
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            isIos: true,
+                            child: Bottomnavigation(index: 0),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -891,10 +917,6 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
   }
 }
 
-
-
-
-
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});
 
@@ -904,6 +926,7 @@ class DropdownButtonExample extends StatefulWidget {
 
 class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   String dropdownValue = list_a.first;
+
 
   @override
   Widget build(BuildContext context) {
@@ -928,6 +951,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          App_Text.category = dropdownValue;
         });
       },
       items: list_a.map<DropdownMenuItem<String>>((String value) {
@@ -939,12 +963,6 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
     );
   }
 }
-
-
-
-
-
-
 
 class DropdownButton_B extends StatefulWidget {
   const DropdownButton_B({super.key});
