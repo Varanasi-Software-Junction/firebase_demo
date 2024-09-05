@@ -52,15 +52,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -83,15 +75,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -114,15 +98,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -145,15 +121,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -176,15 +144,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -207,15 +167,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -238,15 +190,7 @@ class _CategoryState extends State<Category> {
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -269,15 +213,7 @@ class _CategoryState extends State<Category> {
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";
@@ -297,20 +233,10 @@ class _CategoryState extends State<Category> {
     ms.forEach((element) {
       for (var value in element.docs) {
         if (value.get('date').toString() != DateTime.now().day.toString())
-          //   print("Id==");
-          // print(value.id);
           continue;
         setState(() {
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
+            value
           ));
         });
         firebasedata = firebasedata + value.data().toString() + "\n";

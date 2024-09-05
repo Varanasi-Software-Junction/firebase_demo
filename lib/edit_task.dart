@@ -126,7 +126,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
       print(ee);
     }
   }
-  
+
   List<Widget> lst = [];
   Future<void> getmessages() async {
     dynamic result =
@@ -141,16 +141,7 @@ class _Edit_TaskPageState extends State<Edit_TaskPage> {
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
-            value.id.toString(),
-            value.get("title").toString(),
-            value.get("sub_title").toString(),
-            value.get("time").toString(),
-            value.get("date").toString(),
-            value.get("month").toString(),
-            value.get("year").toString(),
-            value.get("category").toString(),
-            value.get("comments").toString(),
-
+            value
           ));
 
         });

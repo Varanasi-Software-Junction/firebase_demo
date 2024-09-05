@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 
 class TaskList extends StatefulWidget {
   // TaskList({super.key});
+  dynamic value;
   String id = "";
   String title = "";
   String sub_title = "";
@@ -18,25 +19,19 @@ class TaskList extends StatefulWidget {
   State<TaskList> createState() => _TaskListState();
 
   TaskList(
-    String id,
-    String title,
-    String sub_title,
-    String time,
-    String date,
-    String month,
-    String year,
-    String category,
-    String comments,
+      dynamic value,
+
   ) {
-    this.id = id;
-    this.title = title;
-    this.sub_title = sub_title;
-    this.time = time;
-    this.date = date;
-    this.month = month;
-    this.year = year;
-    this.category = category;
-    this.comments = comments;
+    this.value=value;
+    this.id = value.id;
+    this.title=value.get("title").toString();
+    this.sub_title = value.get("sub_title").toString();
+    this.time = value.get("time").toString();
+    this.date = value.get("date").toString();
+    this.month = value.get("month").toString();
+    this.year = value.get("year").toString();
+    this.category = value.get("category").toString();
+    this.comments = value.get("comments").toString();
   }
 }
 
