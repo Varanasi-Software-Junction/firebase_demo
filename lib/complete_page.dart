@@ -38,11 +38,7 @@ class _CompletePageState extends State<CompletePage> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        // if(value.get('date').toString() != DateTime.now().toString() &&
-        //     value.get('time').toString() != TimeOfDay.now()
-        //     // value.get('year').toString() != DateTime.now().year
-        // )
-        //   continue;
+        if(value.get('done').toString() == 'true')
         setState(() {
           lst.add(TaskList(
             value,

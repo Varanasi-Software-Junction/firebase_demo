@@ -617,10 +617,10 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                                   "date": _selectedDate1.day.toInt(),
                                   "month": _selectedDate1.month.toInt(),
                                   "year": _selectedDate1.year.toInt(),
-                                  "time":
-                                  _selectedTime.format(context).toString(),
+                                  "time": _selectedTime.format(context).toString(),
                                   "repeat": App_Text.repeat_task,
                                   "comments": App_Text.comments.text,
+                                  "done": App_Text.done,
                                 });
                                 print("sending dta");
                               Navigator.push(

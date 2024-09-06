@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/edit_task.dart';
@@ -20,12 +21,11 @@ class TaskList extends StatefulWidget {
   State<TaskList> createState() => _TaskListState();
 
   TaskList(
-      dynamic value,
-
+    dynamic value,
   ) {
-    this.value=value;
+    this.value = value;
     this.id = value.id;
-    this.title=value.get("title").toString();
+    this.title = value.get("title").toString();
     this.sub_title = value.get("sub_title").toString();
     this.time = value.get("time").toString();
     this.date = value.get("date").toString();
@@ -33,15 +33,27 @@ class TaskList extends StatefulWidget {
     this.year = value.get("year").toString();
     this.category = value.get("category").toString();
     this.comments = value.get("comments").toString();
-
   }
 }
 
 class _TaskListState extends State<TaskList> {
   bool isselect = false;
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.white;
+    }
+
     return Column(
       children: [
         Padding(
@@ -77,15 +89,63 @@ class _TaskListState extends State<TaskList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        widget.title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        widget.sub_title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                           //if(App_Text.done == false)
+                          Column(
+                            children: [
+                              Container(
+                                color: Colors.teal,
+                                width: 19,
+                                height: 19,
+                                child: Checkbox(
+                                  checkColor: Colors.green,
+                                  fillColor: MaterialStateProperty.resolveWith(
+                                      getColor),
+                                  value: isChecked,
+                                  onChanged: (bool? value) {
+                                    setState((){
+                                        isChecked = value!;
+                                      App_Text.done = isChecked;
+                                      var collection = FirebaseFirestore
+                                          .instance
+                                          .collection('goal_getter');
+                                      collection
+                                          .doc(widget.id)
+                                          .update({
+                                            'done': '${App_Text.done}',
+                                          }) // <-- Updated data
+                                          .then((_) => print('Success'))
+                                          .catchError((error) =>
+                                              print('Failed: $error'));
+                                    });
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                          // if(App_Text.done == true)
+                          //   const Column(
+                          //     children: [
+                          //       Icon(Icons.check)
+                          //     ],
+                          //   ),
+                          Column(
+                            children: [
+                              Text(
+                                widget.title,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              Text(
+                                widget.sub_title,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -202,16 +262,15 @@ class _TaskListState extends State<TaskList> {
                                 type: PageTransitionType.rightToLeft,
                                 isIos: true,
                                 child: Edit_TaskPage(
-                                  "${widget.value}",
-                                  "${widget.title}",
-                                  "${widget.sub_title} ",
-                                  "${widget.comments}",
-                                  "${widget.time}",
-                                  "${widget.date}",
-                                  "${widget.month}",
-                                  "${widget.year}",
-                                  "${widget.id}"
-                                ),
+                                    "${widget.value}",
+                                    "${widget.title}",
+                                    "${widget.sub_title} ",
+                                    "${widget.comments}",
+                                    "${widget.time}",
+                                    "${widget.date}",
+                                    "${widget.month}",
+                                    "${widget.year}",
+                                    "${widget.id}"),
                               ),
                             );
                           },
@@ -228,3 +287,4 @@ class _TaskListState extends State<TaskList> {
     );
   }
 }
+

@@ -37,8 +37,8 @@ class _PandingPageState extends State<PandingPage> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        // if(value.get('title').toString()!='Metting')
-        //   continue;
+        if(value.get('done').toString() == 'false')
+
         setState(() {
           //print(value.get("comments").toString());
           lst.add(TaskList(

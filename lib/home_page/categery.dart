@@ -208,8 +208,9 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false'
+        )
         setState(() {
           App_Text.Counter++;
           lst.add(TaskList(
