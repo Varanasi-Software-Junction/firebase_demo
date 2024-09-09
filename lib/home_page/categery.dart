@@ -23,10 +23,11 @@ class _CategoryState extends State<Category> {
     firebaseInit();
     setState(() {
       App_Text.Counter = 0;
+      App_Text.Complete = 0;
     });
     lst.clear();
     category();
-
+    complete_tak();
   }
 
   void firebaseInit() {
@@ -49,14 +50,11 @@ class _CategoryState extends State<Category> {
         // value.update("");
         if (value.get('category').toString() == "Personal".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false'
-        )
-
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -74,13 +72,11 @@ class _CategoryState extends State<Category> {
       for (var value in element.docs) {
         if (value.get('category').toString() == "Office Work".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false')
-
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -98,14 +94,11 @@ class _CategoryState extends State<Category> {
       for (var value in element.docs) {
         if (value.get('category').toString() == "Workout".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-                value.get('done').toString() == 'false'
-        )
-
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -123,13 +116,11 @@ class _CategoryState extends State<Category> {
       for (var value in element.docs) {
         if (value.get('category').toString() == "Yoga".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-        value.get('done').toString() == 'false'
-        )
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -147,12 +138,11 @@ class _CategoryState extends State<Category> {
       for (var value in element.docs) {
         if (value.get('category').toString() == "Sport".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false')
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -170,13 +160,11 @@ class _CategoryState extends State<Category> {
       for (var value in element.docs) {
         if (value.get('category').toString() == "Birthday".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false'
-        )
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -194,13 +182,11 @@ class _CategoryState extends State<Category> {
       for (var value in element.docs) {
         if (value.get('category').toString() == "None".toString() &&
             value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false'
-        )
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
       }
@@ -217,14 +203,12 @@ class _CategoryState extends State<Category> {
     ms.forEach((element) {
       for (var value in element.docs) {
         if (value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false'
-        )
-        setState(() {
-          App_Text.Counter++;
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            App_Text.Counter++;
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
         print(TimeOfDay.hoursPerDay);
         print(value.id);
@@ -242,18 +226,41 @@ class _CategoryState extends State<Category> {
     ms.forEach((element) {
       for (var value in element.docs) {
         if (value.get('date').toString() == DateTime.now().day.toString() &&
-            value.get('done').toString() == 'false'
-        )
-        setState(() {
-          lst.add(TaskList(
-            value
-          ));
-        });
+            value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            lst.add(TaskList(value));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
       }
     });
     setState(() {});
     // print(firebasedata);
+  }
+
+  Future<void> complete_tak() async {
+    dynamic result =
+    await Category.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if(value.get('done').toString() == 'true' &&
+            value.get('date').toString() == DateTime.now().day.toString()
+        )
+          setState(() {
+            App_Text.Complete++;
+
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+        print(TimeOfDay.hoursPerDay);
+      }
+    });
+    setState(() {
+    });
+    print(firebasedata);
+
+
   }
 
   _FirebaseDemoState() {}
@@ -295,11 +302,11 @@ class _CategoryState extends State<Category> {
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.green.shade100,
                     border: Border.all(color: Colors.green)),
-                child: const Column(
+                child:  Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "0",
+                      "${App_Text.Complete}",
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 25,

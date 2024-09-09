@@ -1,11 +1,9 @@
 import 'dart:ui';
-
 import 'package:firebase_demo/add_task/chose_screensize_page.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +16,8 @@ const List<String> list_a = <String>[
   'Workout',
   'Yoga',
   'Sport',
-  'Birthday'
+  'Birthday',
+  'Other'
 ];
 
 const List<String> list_b = <String>[
@@ -408,7 +407,7 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                             cursorColor: Colors.green,
                             cursorHeight: 20,
                             style: const TextStyle(
-                                height: 5,
+                                //height: 5,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
@@ -738,7 +737,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Padding(
-        padding: EdgeInsets.only(left: 180),
+        padding: EdgeInsets.only(left: 150),
         child: Icon(
           Icons.arrow_drop_down,
           color: Colors.green,

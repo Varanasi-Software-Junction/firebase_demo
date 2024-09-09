@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/app_theam.dart';
+import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:firebase_demo/home_page/task_list.dart';
 import 'package:firebase_demo/home_page/task_page.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class PandingPage extends StatefulWidget {
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
@@ -16,7 +18,7 @@ class PandingPage extends StatefulWidget {
 class _PandingPageState extends State<PandingPage> {
   int isselect = 0;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     firebaseInit();
     getmessages();
@@ -29,37 +31,193 @@ class _PandingPageState extends State<PandingPage> {
       print(ee);
     }
   }
+
   List<Widget> lst = [];
   Future<void> getmessages() async {
     dynamic result =
-    await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
     Stream<QuerySnapshot> ms = result;
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if(value.get('done').toString() == 'false' && value.get('gmail').toString() == App_Text.gmail)
-
-        setState(() {
-          //print(value.get("comments").toString());
-          lst.add(TaskList(
-            value,
-          ));
-
-
-        });
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail)
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
         firebasedata = firebasedata + value.data().toString() + "\n";
       }
     });
-    setState(() {
-    });
+    setState(() {});
     print(firebasedata);
+  }
 
+  Future<void> personal() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Personal".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
 
+  Future<void> office_work() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Office Work".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
+
+  Future<void> workout() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Workout".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
+
+  Future<void> yoga() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Yoga".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
+
+  Future<void> sport() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Sport".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
+
+  Future<void> birth_day() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Birthday".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
+
+  Future<void> other() async {
+    dynamic result =
+        await PandingPage.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    firebasedata = "";
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('done').toString() == 'false' &&
+            value.get('gmail').toString() == App_Text.gmail &&
+            value.get('category').toString() == "Other".toString())
+          setState(() {
+            //print(value.get("comments").toString());
+            lst.add(TaskList(
+              value,
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+      }
+    });
+    setState(() {});
+    print(firebasedata);
   }
 
   _FirebaseDemoState() {}
   String firebasedata = "data";
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +226,29 @@ class _PandingPageState extends State<PandingPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        leading: const Icon(Icons.arrow_circle_left,size: 50,color: Colors.teal,),
-        title: const Text("Pending Task",style: TextStyle(color: Colors.teal,fontWeight: FontWeight.bold,fontSize: 25),),
+        leading: InkWell(
+          child: const Icon(
+            Icons.arrow_circle_left,
+            size: 50,
+            color: Colors.teal,
+          ),
+          onTap: (){
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.rightToLeft,
+                isIos: true,
+                child:  Bottomnavigation(index: 0,),
+                // FingerPrint(),
+              ),
+            );
+          },
+        ),
+        title: const Text(
+          "Pending Task",
+          style: TextStyle(
+              color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 25),
+        ),
       ),
       body: SingleChildScrollView(
         // physics: BouncingScrollPhysics(),
@@ -116,7 +295,9 @@ class _PandingPageState extends State<PandingPage> {
               //     ),
               //   ),
               // ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               //************ searching method *************//
 
               SingleChildScrollView(
@@ -135,20 +316,23 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
                                 child: Text(
-                                  "All",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 0 ? Colors.black : Colors.white,
-                                  ),
-                                ))),
+                              "All",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 0 ? Colors.black : Colors.white,
+                              ),
+                            ))),
                         onTap: () {
                           setState(() {
                             isselect = 0;
-                            print(isselect);
+                            lst.clear();
+                            getmessages();
                           });
                         },
                       ),
@@ -164,49 +348,63 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
                                 child: Text(
-                                  "Personal",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 1 ? Colors.black : Colors.white,
-                                  ),
-                                ))),
-                        onTap: () {
-                          setState(() {
-                            isselect = 1;
-                          });
-                        },
-                      ),
-                      const SizedBox(width: 10,),
-                      InkWell(child:
-                      Container(
-                          height: 30,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: isselect != 2
-                                  ? Colors.white
-                                  : Colors.green.shade300,
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: Colors.green.shade300)),
-                          child: Center(
-                            child: Text("office Work",
+                              "Personal",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: isselect != 2 ? Colors.black : Colors.white,
-                              ),),
-                          )),
-                        onTap: (){
+                                color:
+                                    isselect != 1 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
-                            isselect=2;
+                            isselect = 1;
+                            lst.clear();
+                            personal();
                           });
                         },
                       ),
-                      const SizedBox(width: 10,),
-
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        child: Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 2
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                              child: Text(
+                                "Office Work",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: isselect != 2
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                              ),
+                            )),
+                        onTap: () {
+                          setState(() {
+                            isselect = 2;
+                            lst.clear();
+                            office_work();
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -216,21 +414,29 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("Workout",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 3 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
+                                child: Text(
+                              "Workout",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 3 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
-                            isselect=3;
+                            isselect = 3;
+                            lst.clear();
+                            workout();
                           });
                         },
                       ),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -240,19 +446,29 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
-                            child: Center(child: Text("Yoga",
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                                child: Text(
+                              "Yoga",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: isselect != 4 ? Colors.black : Colors.white,
-                              ),))),
-                        onTap: (){
+                                color:
+                                    isselect != 4 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
                             isselect = 4;
+                            lst.clear();
+                            yoga();
                           });
-                        },),
-                      const SizedBox(width: 10,),
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -262,20 +478,29 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("Sport",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 5 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
+                                child: Text(
+                              "Sport",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 5 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
                             isselect = 5;
+                            lst.clear();
+                            sport();
                           });
-                        },),
-                      const SizedBox(width: 10,),
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -285,20 +510,29 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("Birthday",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 6 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
+                                child: Text(
+                              "Birthday",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 6 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
                             isselect = 6;
+                            lst.clear();
+                            birth_day();
                           });
-                        },),
-                      const SizedBox( width: 10,),
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         child: Container(
                             height: 30,
@@ -308,39 +542,52 @@ class _PandingPageState extends State<PandingPage> {
                                     ? Colors.white
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.green.shade300)),
+                                border:
+                                    Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("Other",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isselect != 7 ? Colors.black : Colors.white,
-                                  ),))),
-                        onTap: (){
+                                child: Text(
+                              "Other",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    isselect != 7 ? Colors.black : Colors.white,
+                              ),
+                            ))),
+                        onTap: () {
                           setState(() {
                             isselect = 7;
+                            lst.clear();
+                            other();
                           });
-                        },),
+                        },
+                      ),
                     ],
                   ),
                 ),
               ),
               //************ Pending task *************//
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Text("All Pending Tasks",style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),)
+                    Text(
+                      "All Pending Tasks",
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               ),
-              const SizedBox(height: 10,),
-              Column(
-                children: lst
+              const SizedBox(
+                height: 10,
               ),
-
-
+              Column(children: lst),
             ],
           ),
         ),

@@ -1,4 +1,6 @@
+import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalanderPage extends StatefulWidget {
@@ -20,7 +22,21 @@ class _CalanderPageState extends State<CalanderPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: const Icon(Icons.arrow_circle_left,size: 50,color: Colors.teal,),
+        leading: InkWell(
+            child: const Icon(
+              Icons.arrow_circle_left,size: 50,color: Colors.teal,),
+          onTap: (){
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.rightToLeft,
+                isIos: true,
+                child:  Bottomnavigation(index: 2,),
+                // FingerPrint(),
+              ),
+            );
+          },
+        ),
         title: const Text("Calendar",style: TextStyle(color: Colors.teal,fontWeight: FontWeight.bold,fontSize: 25),),
       ),
       body:  Column(

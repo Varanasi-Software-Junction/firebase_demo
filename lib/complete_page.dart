@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/app_theam.dart';
+import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:firebase_demo/home_page/task_list.dart';
 import 'package:firebase_demo/home_page/task_page.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 class CompletePage extends StatefulWidget {
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
 
@@ -20,7 +22,6 @@ class _CompletePageState extends State<CompletePage> {
     super.initState();
     firebaseInit();
     getmessages();
-
   }
 
   void firebaseInit() {
@@ -56,6 +57,7 @@ class _CompletePageState extends State<CompletePage> {
 
   }
 
+
   _FirebaseDemoState() {}
   String firebasedata = "data";
 
@@ -70,7 +72,15 @@ class _CompletePageState extends State<CompletePage> {
         leading: InkWell(
           child: const Icon(Icons.arrow_circle_left,size: 50,color: Colors.teal,),
           onTap: (){
-            // Navigator.pop(context);
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.rightToLeft,
+                isIos: true,
+                child:  Bottomnavigation(index: 1,),
+                // FingerPrint(),
+              ),
+            );
           },
         ),
         title: const Text("Complete Task",style: TextStyle(color: Colors.teal,fontWeight: FontWeight.bold,fontSize: 25),),
