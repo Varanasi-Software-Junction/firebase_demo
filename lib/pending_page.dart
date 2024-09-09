@@ -37,7 +37,7 @@ class _PandingPageState extends State<PandingPage> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if(value.get('done').toString() == 'false')
+        if(value.get('done').toString() == 'false' && value.get('gmail').toString() == App_Text.gmail)
 
         setState(() {
           //print(value.get("comments").toString());

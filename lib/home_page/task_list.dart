@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 class TaskList extends StatefulWidget {
+  static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
   // TaskList({super.key});
   dynamic value;
   String id = "";
@@ -39,6 +40,49 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   bool isselect = false;
   bool isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    firebaseInit();
+
+  }
+
+  void firebaseInit() {
+    try {
+      TaskList.firestoredb = FirebaseFirestore.instance;
+    } catch (ee) {
+      print(ee);
+    }
+  }
+
+  _FirebaseDemoState() {}
+  String firebasedata = "data";
+
+  List<Widget> lst = [];
+  Future<void> category() async {
+    dynamic result =
+    await TaskList.firestoredb?.collection("goal_getter").snapshots();
+    Stream<QuerySnapshot> ms = result;
+    ms.forEach((element) {
+      for (var value in element.docs) {
+        if (value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false'
+        )
+          setState(() {
+            App_Text.Counter++;
+            lst.add(TaskList(
+                value
+            ));
+          });
+        firebasedata = firebasedata + value.data().toString() + "\n";
+        print(TimeOfDay.hoursPerDay);
+        print(value.id);
+      }
+    });
+    setState(() {});
+    print(firebasedata);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +163,7 @@ class _TaskListState extends State<TaskList> {
                                           .then((_) => print('Success'))
                                           .catchError((error) =>
                                               print('Failed: $error'));
+                                      category();
                                     });
                                   },
                                 ),

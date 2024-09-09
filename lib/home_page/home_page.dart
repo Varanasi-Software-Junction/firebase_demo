@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   //print("Checking current user  $user");
   @override
   Widget build(BuildContext context) {
+    App_Text.gmail = "${user?.email}";
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
                         child: Column(
                           children: [
                             const Row(

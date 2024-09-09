@@ -154,7 +154,7 @@ class _SignInDemoState extends State<SignInDemo> {
     final GoogleSignInAccount? user = Googel_Signin.currentUser;
     print("Checking current user  $user");
     if (user != null) {
-      // The user is Authenticated
+      String mail = "";
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[

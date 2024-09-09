@@ -47,9 +47,11 @@ class _CategoryState extends State<Category> {
     ms.forEach((element) {
       for (var value in element.docs) {
         // value.update("");
-        if (value.get('category').toString() != "Personal".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "Personal".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false'
+        )
+
         setState(() {
           lst.add(TaskList(
             value
@@ -70,9 +72,10 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('category').toString() != "Office Work".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "Office Work".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false')
+
         setState(() {
           lst.add(TaskList(
             value
@@ -93,9 +96,11 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('category').toString() != "Workout".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "Workout".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+                value.get('done').toString() == 'false'
+        )
+
         setState(() {
           lst.add(TaskList(
             value
@@ -116,9 +121,10 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('category').toString() != "Yoga".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "Yoga".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+        value.get('done').toString() == 'false'
+        )
         setState(() {
           lst.add(TaskList(
             value
@@ -139,9 +145,9 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('category').toString() != "Sport".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "Sport".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false')
         setState(() {
           lst.add(TaskList(
             value
@@ -162,9 +168,10 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('category').toString() != "Birthday".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "Birthday".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false'
+        )
         setState(() {
           lst.add(TaskList(
             value
@@ -185,9 +192,10 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('category').toString() != "None".toString() ||
-            value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('category').toString() == "None".toString() &&
+            value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false'
+        )
         setState(() {
           lst.add(TaskList(
             value
@@ -233,8 +241,9 @@ class _CategoryState extends State<Category> {
     firebasedata = "";
     ms.forEach((element) {
       for (var value in element.docs) {
-        if (value.get('date').toString() != DateTime.now().day.toString())
-          continue;
+        if (value.get('date').toString() == DateTime.now().day.toString() &&
+            value.get('done').toString() == 'false'
+        )
         setState(() {
           lst.add(TaskList(
             value

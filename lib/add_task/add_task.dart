@@ -607,10 +607,14 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                             if (App_Text.task_title.text.isNotEmpty &&
                                 App_Text.sub_title.text.isNotEmpty &&
                                 App_Text.category.isNotEmpty) {
+                              setState(() {
+                                App_Text.done = false;
+                              });
 
                                 await Add_TaskPage.firestoredb
                                     ?.collection("goal_getter")
                                     .add({
+                                  "gmail": App_Text.gmail,
                                   "title": App_Text.task_title.text,
                                   "sub_title": App_Text.sub_title.text,
                                   "category": App_Text.category,
