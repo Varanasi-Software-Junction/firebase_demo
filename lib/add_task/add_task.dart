@@ -258,16 +258,17 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                   ),
                   Row(
                     children: [
-                      Container(
-                          height: 50,
-                          width: 350,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.green.shade200),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: DropdownButtonExample(),
-                          )),
+                      Expanded(
+                        child: Container(
+                          
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.green.shade200),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: DropdownButtonExample(),
+                            )),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -326,7 +327,7 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
+                        width: 5,
                       ),
                       Column(
                         children: [
@@ -344,10 +345,11 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                             ],
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 10,
                           ),
                           SizedBox(
                               width: 170,
+                              height: 65,
                               child: InkWell(
                                 child: Container(
                                   height: 60,
@@ -376,137 +378,6 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                         ],
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    children: [
-                      Text(
-                        "Repeat Task",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                          height: 50,
-                          width: 350,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.green.shade200),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: DropdownButton_B(),
-                          )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    children: [
-                      Text(
-                        "Choose Remainder",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 350,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.green.shade200)),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Remainder",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 20),
-                            child: Icon(
-                              Icons.chevron_right,
-                              size: 30,
-                              color: Colors.green,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    children: [
-                      Text(
-                        "Choose Screen Size && Close Button",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  InkWell(
-                    child: Container(
-                      height: 50,
-                      width: 350,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.green.shade200)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              App_Text.Screen_size,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 18),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Icon(
-                                Icons.chevron_right,
-                                size: 30,
-                                color: Colors.green,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          isIos: true,
-                          child: const Screensize_Page(),
-                        ),
-                      );
-                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -553,16 +424,147 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide:
-                                      const BorderSide(color: Colors.green)),
+                                  const BorderSide(color: Colors.green)),
                               //hintText: "Enter Sub-Task",
                               hintStyle:
-                                  TextStyle(color: Colors.green.shade200),
+                              TextStyle(color: Colors.green.shade200),
                             ),
                           ),
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    children: [
+                      Text(
+                        "Repeat Task",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.green),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.green.shade200),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: DropdownButton_B(),
+                            )),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    children: [
+                      Text(
+                        "Choose Remainder",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.green),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.green.shade200)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Remainder",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 18),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Icon(
+                              Icons.chevron_right,
+                              size: 30,
+                              color: Colors.green,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    children: [
+                      Text(
+                        "Choose Screen Size && Close Button",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.green),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  InkWell(
+                    child: Container(
+                      height: 50,
+                      //width: 350,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.green.shade200)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              App_Text.Screen_size,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 18),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(right: 20),
+                              child: Icon(
+                                Icons.chevron_right,
+                                size: 30,
+                                color: Colors.green,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          isIos: true,
+                          child: const Screensize_Page(),
+                        ),
+                      );
+                    },
+                  ),
+
                   const SizedBox(
                     height: 50,
                   ),
@@ -588,6 +590,15 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                             App_Text.task_title.clear();
                             App_Text.comments.clear();
                           });
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              isIos: true,
+                              child:Bottomnavigation(index: 0),
+                            ),
+                          );
+                          
                         },
                       ),
                       InkWell(

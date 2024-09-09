@@ -77,45 +77,45 @@ class _PandingPageState extends State<PandingPage> {
           color: Colors.white,
           child: Column(
             children: [
-              const SizedBox(height: 20,),
+              //const SizedBox(height: 20,),
               //************ search bar *************//
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 50,
-                  color: Colors.white,
-                  child: SizedBox(
-                    child: TextField(
-                      autofocus: true,
-                      cursorColor: Colors.grey,
-                      style: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                          enabledBorder:  OutlineInputBorder(
-                            // borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.green.shade200,
-                              //width: 1.5,
-                            ),
-                          ),
-
-                          //********Focus border like hover******************8
-                          focusedBorder: OutlineInputBorder(
-                            // borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.green.shade200),
-                              borderRadius: BorderRadius.circular(15)),
-
-                          hintText: "Search",
-                          hintStyle: const TextStyle(color: Colors.green),
-                          prefixIcon: const Icon(
-                            Icons.search,
-                            color: Colors.green,
-                            size: 30,
-                          )),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Container(
+              //     height: 50,
+              //     color: Colors.white,
+              //     child: SizedBox(
+              //       child: TextField(
+              //         autofocus: true,
+              //         cursorColor: Colors.grey,
+              //         style: const TextStyle(
+              //             color: Colors.black, fontWeight: FontWeight.bold),
+              //         decoration: InputDecoration(
+              //             enabledBorder:  OutlineInputBorder(
+              //               // borderRadius: BorderRadius.circular(10),
+              //               borderSide: BorderSide(
+              //                 color: Colors.green.shade200,
+              //                 //width: 1.5,
+              //               ),
+              //             ),
+              //
+              //             //********Focus border like hover******************8
+              //             focusedBorder: OutlineInputBorder(
+              //               // borderRadius: BorderRadius.circular(10),
+              //                 borderSide: BorderSide(color: Colors.green.shade200),
+              //                 borderRadius: BorderRadius.circular(15)),
+              //
+              //             hintText: "Search",
+              //             hintStyle: const TextStyle(color: Colors.green),
+              //             prefixIcon: const Icon(
+              //               Icons.search,
+              //               color: Colors.green,
+              //               size: 30,
+              //             )),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 30,),
               //************ searching method *************//
 
@@ -138,7 +138,7 @@ class _PandingPageState extends State<PandingPage> {
                                 border: Border.all(color: Colors.green.shade300)),
                             child: Center(
                                 child: Text(
-                                  "1 days later",
+                                  "All",
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -167,7 +167,7 @@ class _PandingPageState extends State<PandingPage> {
                                 border: Border.all(color: Colors.green.shade300)),
                             child: Center(
                                 child: Text(
-                                  "2 days later",
+                                  "Personal",
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class _PandingPageState extends State<PandingPage> {
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(color: Colors.green.shade300)),
                           child: Center(
-                            child: Text("3 days later",
+                            child: Text("office Work",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
@@ -218,7 +218,7 @@ class _PandingPageState extends State<PandingPage> {
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("In a week",
+                                child: Text("Workout",
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -241,7 +241,7 @@ class _PandingPageState extends State<PandingPage> {
                                     : Colors.green.shade300,
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(color: Colors.green.shade300)),
-                            child: Center(child: Text("In a month",
+                            child: Center(child: Text("Yoga",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
@@ -264,7 +264,7 @@ class _PandingPageState extends State<PandingPage> {
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(color: Colors.green.shade300)),
                             child: Center(
-                                child: Text("In a year",
+                                child: Text("Sport",
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -276,6 +276,51 @@ class _PandingPageState extends State<PandingPage> {
                           });
                         },),
                       const SizedBox(width: 10,),
+                      InkWell(
+                        child: Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 6
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                                child: Text("Birthday",
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: isselect != 6 ? Colors.black : Colors.white,
+                                  ),))),
+                        onTap: (){
+                          setState(() {
+                            isselect = 6;
+                          });
+                        },),
+                      const SizedBox( width: 10,),
+                      InkWell(
+                        child: Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: isselect != 7
+                                    ? Colors.white
+                                    : Colors.green.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(color: Colors.green.shade300)),
+                            child: Center(
+                                child: Text("Other",
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: isselect != 7 ? Colors.black : Colors.white,
+                                  ),))),
+                        onTap: (){
+                          setState(() {
+                            isselect = 7;
+                          });
+                        },),
                     ],
                   ),
                 ),
