@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert' show json;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/add_task/add_task.dart';
+import 'package:firebase_demo/api/firebase_api.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/main.dart';
 import 'package:firebase_demo/signin_demo.dart';
@@ -14,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:firebase_demo/intro_page/intro_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:alarm/alarm.dart';
 import 'package:flutter/services.dart';
 
@@ -24,14 +26,17 @@ Future<void> main()  async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    await Alarm.init();
+    print("yea");
+    // await FirebaseMessaging.getInstance().getToken();
+    print("done");
+    // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    // await Alarm.init();
   }catch (e){
     print(e);
   }
   Googel_Signin.login();
-  print("Checking current user  ${Googel_Signin.currentUser}");
-  print("Checking current user  ${Googel_Signin.isAuthorized}");
+  // print("Checking current user  ${Googel_Signin.currentUser}");
+  // print("Checking current user  ${Googel_Signin.isAuthorized}");
 
   runApp(const MyApp());
 }

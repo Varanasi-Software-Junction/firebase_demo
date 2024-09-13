@@ -4,6 +4,7 @@ import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/categery.dart';
 import 'package:firebase_demo/home_page/task_page.dart';
 import 'package:firebase_demo/utilittis.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
@@ -18,6 +19,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GoogleSignInAccount? user = Googel_Signin.currentUser;
+
+  final messaging = FirebaseMessaging.instance;
 
   //print("Checking current user  $user");
   @override
@@ -115,15 +118,29 @@ class _HomePageState extends State<HomePage> {
                 child:
                 const Icon(Icons.add,size: 50,color: Colors.white,),
               ),
-              onTap: (){
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.bottomToTop,
-                    isIos: true,
-                    child: const Add_TaskPage(),
-                  ),
+              onTap: () async {
+                final settings = await messaging.requestPermission(
+                  alert: true,
+                  announcement: false,
+                  badge: true,
+                  carPlay: false,
+                  criticalAlert: false,
+                  provisional: false,
+                  sound: true,
                 );
+
+                // if (kDebugMode) {
+                //   print('Permission granted: ${settings.authorizationStatus}');
+                // }
+
+                // Navigator.push(
+                //   context,
+                //   PageTransition(
+                //     type: PageTransitionType.bottomToTop,
+                //     isIos: true,
+                //     child: const Add_TaskPage(),
+                //   ),
+                // );
               },
             ),
           )
