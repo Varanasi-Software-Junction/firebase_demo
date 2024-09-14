@@ -1,3 +1,4 @@
+import 'package:firebase_demo/api/firebase_api.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:firebase_demo/intro_page/to_do_list_intro.dart';
@@ -19,7 +20,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
-    // TODO: implement initState
+    NotificationServices().firebaseInit(context);
     super.initState();
     //This function define in the utillites page
       Googel_Signin.login();

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/add_task/add_task.dart';
 import 'package:firebase_demo/app_theam.dart';
-import 'package:firebase_demo/home_page/categery.dart';
-import 'package:firebase_demo/home_page/task_page.dart';
 import 'package:firebase_demo/utilittis.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rxdart/rxdart.dart';
+
 
 class HomePage extends StatefulWidget {
   static FirebaseFirestore? firestoredb; //=FirebaseFirestore.instance;
@@ -19,8 +19,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GoogleSignInAccount? user = Googel_Signin.currentUser;
-
   final messaging = FirebaseMessaging.instance;
+  String _lastMessage = "";
+  final _messageStreamController = BehaviorSubject<RemoteMessage>();
+
+
+  _HomePageState() {
+    _messageStreamController.listen((message) {
+      setState(() {
+        if (message.notification != null) {
+          _lastMessage = 'Received a notification message:'
+              '\nTitle=${message.notification?.title},'
+              '\nBody=${message.notification?.body},'
+              '\nData=${message.data}';
+        } else {
+          _lastMessage = 'Received a data message: ${message.data}';
+        }
+      });
+    });
+  }
 
   //print("Checking current user  $user");
   @override
@@ -94,10 +111,15 @@ class _HomePageState extends State<HomePage> {
 
                   //************ Category slider *****************//
                   const SizedBox(height: 10,),
-                  const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Category(),
-                  ),
+                  // const Padding(
+                  //   padding: EdgeInsets.all(15.0),
+                  //   child: Category(),
+                  // ),
+                  Text('Last message from Firebase Messaging:',
+                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(_lastMessage, style: Theme.of(context).textTheme.bodyLarge),
+                  SelectableText(DataGet.token, style: Theme.of(context).textTheme.bodyLarge),
+
 
                 ],
               ),
@@ -119,28 +141,15 @@ class _HomePageState extends State<HomePage> {
                 const Icon(Icons.add,size: 50,color: Colors.white,),
               ),
               onTap: () async {
-                final settings = await messaging.requestPermission(
-                  alert: true,
-                  announcement: false,
-                  badge: true,
-                  carPlay: false,
-                  criticalAlert: false,
-                  provisional: false,
-                  sound: true,
+
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.bottomToTop,
+                    isIos: true,
+                    child: const Add_TaskPage(),
+                  ),
                 );
-
-                // if (kDebugMode) {
-                //   print('Permission granted: ${settings.authorizationStatus}');
-                // }
-
-                // Navigator.push(
-                //   context,
-                //   PageTransition(
-                //     type: PageTransitionType.bottomToTop,
-                //     isIos: true,
-                //     child: const Add_TaskPage(),
-                //   ),
-                // );
               },
             ),
           )
@@ -148,4 +157,8 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+class DataGet {
+  static String token = '';
 }
