@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_demo/add_task/add_task.dart';
 import 'package:firebase_demo/app_theam.dart';
+import 'package:firebase_demo/home_page/categery.dart';
 import 'package:firebase_demo/utilittis.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -111,10 +112,10 @@ class _HomePageState extends State<HomePage> {
 
                   //************ Category slider *****************//
                   const SizedBox(height: 10,),
-                  // const Padding(
-                  //   padding: EdgeInsets.all(15.0),
-                  //   child: Category(),
-                  // ),
+                   Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Category(),
+                  ),
                   Text('Last message from Firebase Messaging:',
                       style: Theme.of(context).textTheme.titleLarge),
                   Text(_lastMessage, style: Theme.of(context).textTheme.bodyLarge),

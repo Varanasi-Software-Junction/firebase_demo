@@ -1,11 +1,14 @@
 import 'dart:ui';
+import 'dart:async';
+import 'package:alarm/alarm.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
+import 'package:alarm/model/alarm_settings.dart';
 import 'package:firebase_demo/add_task/chose_screensize_page.dart';
 import 'package:firebase_demo/app_theam.dart';
 import 'package:firebase_demo/home_page/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
@@ -102,18 +105,18 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
     }
   }
 
-  // final alarmSettings = AlarmSettings(
-  //   id: 42,
-  //   dateTime: dateTime,
-  //   assetAudioPath: 'assets/alarm.mp3',
-  //   loopAudio: true,
-  //   vibrate: true,
-  //   volume: 0.8,
-  //   fadeDuration: 3.0,
-  //   notificationTitle: 'This is the title',
-  //   notificationBody: 'This is the body',
-  //   enableNotificationOnKill: Platform.isIOS,
-  // );
+  final alarmSettings = AlarmSettings(
+    id: 42,
+    dateTime: DateTime.now(),
+    assetAudioPath: 'assets/alarm.mp3',
+    loopAudio: true,
+    vibrate: true,
+    volume: 0.8,
+    fadeDuration: 3.0,
+    notificationTitle: 'This is the title',
+    notificationBody: 'This is the body',
+    enableNotificationOnKill: Platform.isIOS,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -597,20 +600,22 @@ class _Add_TaskPageState extends State<Add_TaskPage> {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ))),
                         onTap: () async {
-                          setState(() {
-                            App_Text.sub_title.clear();
-                            App_Text.task_title.clear();
-                            App_Text.comments.clear();
-                          });
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              isIos: true,
-                              child:Bottomnavigation(index: 0),
-                            ),
-                          );
-                          
+                          // setState(() {
+                          //   App_Text.sub_title.clear();
+                          //   App_Text.task_title.clear();
+                          //   App_Text.comments.clear();
+                          // });
+                          // Navigator.push(
+                          //   context,
+                          //   PageTransition(
+                          //     type: PageTransitionType.rightToLeft,
+                          //     isIos: true,
+                          //     child:Bottomnavigation(index: 0),
+                          //   ),
+                          // );
+                          //
+                          //await Alarm.set(alarmSettings: alarmSettings);
+                          await Alarm.stop(alarmSettings.id);
                         },
                       ),
                       InkWell(
